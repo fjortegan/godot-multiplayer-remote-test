@@ -42,7 +42,6 @@ func join_game(address = ""):
 		return error
 	multiplayer.multiplayer_peer = peer
 	print("game joined " + str(peer.get_unique_id()))
-	return peer
 
 
 func create_game():
