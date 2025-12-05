@@ -1,23 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjxqkmnqibdfu"]
+[gd_scene format=3 uid="uid://crig0tolmjqo"]
 
-[ext_resource type="Script" uid="uid://dbpj7katxvwne" path="res://net_init.gd" id="1_jujhb"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jujhb"]
-bg_color = Color(0.401942, 0.68324, 0.319943, 1)
-
-[node name="NetInit" type="Node2D"]
-script = ExtResource("1_jujhb")
+[node name="Lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 73.0
-offset_top = 33.0
-offset_right = 568.0
-offset_bottom = 254.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="TitleLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -33,7 +23,6 @@ text = "Player Name:"
 
 [node name="PlayerNameInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 placeholder_text = "Enter your name"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
@@ -45,7 +34,6 @@ text = "Server IP:"
 
 [node name="IpInput" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "127.0.0.1"
 placeholder_text = "127.0.0.1"
 
@@ -63,12 +51,9 @@ placeholder_text = "8910"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 30
 
 [node name="ServerButton" type="Button" parent="VBoxContainer/HBoxContainer4"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_jujhb")
 text = "Start Server"
 
 [node name="ClientButton" type="Button" parent="VBoxContainer/HBoxContainer4"]
@@ -91,6 +76,3 @@ text = "Connected Players:"
 [node name="PlayerList" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-
-[connection signal="pressed" from="VBoxContainer/HBoxContainer4/ServerButton" to="." method="_on_server_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer4/ClientButton" to="." method="_on_client_pressed"]
