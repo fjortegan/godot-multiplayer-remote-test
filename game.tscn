@@ -1,6 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://87ypdb6oj28m"]
+[gd_scene load_steps=6 format=3 uid="uid://87ypdb6oj28m"]
 
 [ext_resource type="Script" uid="uid://cq381wf0v0b3" path="res://game.gd" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://cw78m2hk3gj32" path="res://button.tscn" id="2_7jktm"]
+[ext_resource type="Script" uid="uid://cifhoyyj5yy5w" path="res://multiplayer_spawner.gd" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://mbks7eqwwipn" path="res://player1.tscn" id="4_7jktm"]
+[ext_resource type="PackedScene" uid="uid://bwlpdxgc2rs8c" path="res://player2.tscn" id="4_fc0e3"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_80nbo")
+
+[node name="Button1" parent="." instance=ExtResource("2_7jktm")]
+position = Vector2(274, 234)
+
+[node name="Button2" parent="." instance=ExtResource("2_7jktm")]
+position = Vector2(387, 235)
+
+[node name="Players" type="Node2D" parent="."]
+position = Vector2(329, 209)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bwlpdxgc2rs8c", "uid://mbks7eqwwipn")
+spawn_path = NodePath("../Players")
+script = ExtResource("3_feb5d")
+network_player = ExtResource("4_7jktm")
+server_player = ExtResource("4_fc0e3")
