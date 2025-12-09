@@ -2,20 +2,20 @@
 
 [ext_resource type="Script" uid="uid://cji2qxgbrk62n" path="res://player.gd" id="1_op7ga"]
 [ext_resource type="PackedScene" uid="uid://5kuirx8eoles" path="res://lpc_animated_sprite_2d.tscn" id="2_onrkg"]
-[ext_resource type="Texture2D" uid="uid://bvaqjsxiryboe" path="res://images/characters/p1/standard/1h_backslash.png" id="3_op7ga"]
-[ext_resource type="Texture2D" uid="uid://vgyfccy4cbsx" path="res://images/characters/p1/standard/climb.png" id="4_q13i1"]
-[ext_resource type="Texture2D" uid="uid://drqh4ckxummcl" path="res://images/characters/p1/standard/idle.png" id="5_pylmc"]
-[ext_resource type="Texture2D" uid="uid://dch1id66rs5c4" path="res://images/characters/p1/standard/emote.png" id="6_pbfsw"]
-[ext_resource type="Texture2D" uid="uid://cg3au1cjb6ikb" path="res://images/characters/p1/standard/1h_halfslash.png" id="7_5tmop"]
-[ext_resource type="Texture2D" uid="uid://c4ko3b1jcp23m" path="res://images/characters/p1/standard/hurt.png" id="8_7ahtn"]
-[ext_resource type="Texture2D" uid="uid://diw4ypm6p20pq" path="res://images/characters/p1/standard/jump.png" id="9_7lmhl"]
-[ext_resource type="Texture2D" uid="uid://cqpndv7ul8vpn" path="res://images/characters/p1/standard/run.png" id="10_dx0e4"]
-[ext_resource type="Texture2D" uid="uid://cg8bk16s07puc" path="res://images/characters/p1/standard/shoot.png" id="11_jm5j8"]
-[ext_resource type="Texture2D" uid="uid://cc1x8qxqv6j64" path="res://images/characters/p1/standard/sit.png" id="12_7hik5"]
-[ext_resource type="Texture2D" uid="uid://xlc3j7gnv1a0" path="res://images/characters/p1/standard/1h_slash.png" id="13_qtqh7"]
-[ext_resource type="Texture2D" uid="uid://enqebui8srkg" path="res://images/characters/p1/standard/spellcast.png" id="14_2wuci"]
-[ext_resource type="Texture2D" uid="uid://o0flgn5t5ycg" path="res://images/characters/p1/standard/thrust.png" id="15_iruf7"]
-[ext_resource type="Texture2D" uid="uid://b0fy0enqirwrb" path="res://images/characters/p1/standard/walk.png" id="16_j5n4i"]
+[ext_resource type="Texture2D" uid="uid://binugo0he87sx" path="res://images/characters/p1/standard/1h_backslash.png" id="3_op7ga"]
+[ext_resource type="Texture2D" uid="uid://2pn31eere2n8" path="res://images/characters/p1/standard/climb.png" id="4_q13i1"]
+[ext_resource type="Texture2D" uid="uid://bxdrfo0wmg4l0" path="res://images/characters/p1/standard/idle.png" id="5_pylmc"]
+[ext_resource type="Texture2D" uid="uid://brg2ukcdj73fv" path="res://images/characters/p1/standard/emote.png" id="6_pbfsw"]
+[ext_resource type="Texture2D" uid="uid://72yyhua7mx84" path="res://images/characters/p1/standard/1h_halfslash.png" id="7_5tmop"]
+[ext_resource type="Texture2D" uid="uid://bxw2stm2xt70s" path="res://images/characters/p1/standard/hurt.png" id="8_7ahtn"]
+[ext_resource type="Texture2D" uid="uid://bws4hgjebq5ty" path="res://images/characters/p1/standard/jump.png" id="9_7lmhl"]
+[ext_resource type="Texture2D" uid="uid://de0613bywuas0" path="res://images/characters/p1/standard/run.png" id="10_dx0e4"]
+[ext_resource type="Texture2D" uid="uid://bjuaqf1ghgcfl" path="res://images/characters/p1/standard/shoot.png" id="11_jm5j8"]
+[ext_resource type="Texture2D" uid="uid://dldufx4j3wjua" path="res://images/characters/p1/standard/sit.png" id="12_7hik5"]
+[ext_resource type="Texture2D" uid="uid://bq4tq2st6d5ax" path="res://images/characters/p1/standard/1h_slash.png" id="13_qtqh7"]
+[ext_resource type="Texture2D" uid="uid://bvcal107cl2f3" path="res://images/characters/p1/standard/spellcast.png" id="14_2wuci"]
+[ext_resource type="Texture2D" uid="uid://cxxg8h7em8fn4" path="res://images/characters/p1/standard/thrust.png" id="15_iruf7"]
+[ext_resource type="Texture2D" uid="uid://wcnnr1spv46o" path="res://images/characters/p1/standard/walk.png" id="16_j5n4i"]
 [ext_resource type="Script" uid="uid://disydpnnfdxdy" path="res://addons/LPCAnimatedSprite/LPCAnimationData.gd" id="17_634y6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
@@ -4322,6 +4322,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:spawn_position")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("LPCAnimatedSprite2D:animation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 motion_mode = 1
@@ -4334,7 +4337,7 @@ shape = SubResource("RectangleShape2D_7jktm")
 
 [node name="LPCAnimatedSprite2D" parent="." instance=ExtResource("2_onrkg")]
 sprite_frames = SubResource("SpriteFrames_3xdjv")
-frame_progress = 0.7228607
+frame_progress = 0.95768356
 animation_data = SubResource("Resource_0anxw")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

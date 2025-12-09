@@ -1,5 +1,7 @@
 extends Node2D
 
+var pressed_buttons: int = 0
+
 func _ready():
 	# Preconfigure game.
 	if not multiplayer.is_server():
@@ -16,3 +18,12 @@ func start_game():
 	# All peers are ready to receive RPCs in this scene.
 	#Lobby.debug_log("game started: " + str(multiplayer.get_unique_id()))
 	$MultiplayerSpawner.spawn_player(multiplayer.get_unique_id())
+	$Button1.activation.connect(_on_button_pressed)
+	$Button2.activation.connect(_on_button_pressed)
+
+func _on_button_pressed(status: bool):
+	if status:
+		pressed_buttons += 1
+	else:
+		pressed_buttons -= 1 
+	Lobby.debug_log("pressed buttons "+str(pressed_buttons))

@@ -15,14 +15,6 @@ func spawn_player(id: int):
 	player = network_player.instantiate()
 	var posx = -180 if id==1 else 360
 	player.spawn_position = Vector2(posx, 0)
-	
-	
-	if id == 1:
-		player = server_player.instantiate()
-		#player.spawn_position = Vector2(-180, 0)
-	else:
-		player = network_player.instantiate()
-		#player.spawn_position = Vector2(180,0)
 
 	player.name = str(id)
 	get_node(spawn_path).call_deferred("add_child", player)
