@@ -4060,7 +4060,6 @@ animations = [{
 resource_local_to_scene = true
 resource_name = "LPCAnimationData"
 script = ExtResource("17_634y6")
-base_animation_size = 64
 available_animations = Array[String](["spellcast", "thrust", "walk", "slash", "shoot", "hurt", "climb", "idle", "jump", "sit", "emote", "run", "combat_idle", "backslash", "halfslash", "slash_oversize", "slash_reverse_oversize", "thrust_oversize"])
 required_spritesheets = {
 "backslash": "standard/1h_backslash",
@@ -4318,7 +4317,7 @@ custom_frames = {
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_p0npm"]
 properties/0/path = NodePath(".:position")
-properties/0/spawn = true
+properties/0/spawn = false
 properties/0/replication_mode = 1
 properties/1/path = NodePath(".:spawn_position")
 properties/1/spawn = true
@@ -4336,7 +4335,6 @@ properties/4/replication_mode = 1
 [node name="CharacterBody2D" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_op7ga")
-spawn_position = Vector2(180, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
@@ -4344,7 +4342,7 @@ shape = SubResource("RectangleShape2D_7jktm")
 
 [node name="LPCAnimatedSprite2D" parent="." instance=ExtResource("2_onrkg")]
 sprite_frames = SubResource("SpriteFrames_3xdjv")
-frame_progress = 0.409718
+frame_progress = 0.7839082
 animation_data = SubResource("Resource_0anxw")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

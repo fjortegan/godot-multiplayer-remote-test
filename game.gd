@@ -17,7 +17,10 @@ func _input(event):
 func start_game():
 	# All peers are ready to receive RPCs in this scene.
 	#Lobby.debug_log("game started: " + str(multiplayer.get_unique_id()))
-	$MultiplayerSpawner.spawn_player(multiplayer.get_unique_id())
+	var posx = -180
+	for id in Lobby.players:
+		$MultiplayerSpawner.spawn_player(id, posx)
+		posx += 180
 	$Button1.activation.connect(_on_button_pressed)
 	$Button2.activation.connect(_on_button_pressed)
 

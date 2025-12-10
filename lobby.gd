@@ -6,6 +6,7 @@ extends Node
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
+signal game_start
 
 const PORT = 7000
 const DEFAULT_SERVER_IP = "127.0.0.1" # IPv4 localhost
@@ -52,8 +53,13 @@ func create_game():
 	players[1] = player_info
 	player_connected.emit(1, player_info)
 	#Lobby.debug_log("game created")
-	Lobby.load_game("res://game.tscn")
+	game_start.connect(_on_game_started)
 
+func _on_game_started():
+	load_game.rpc("res://game.tscn")	
+
+func start_game():
+	game_start.emit()
 
 func remove_multiplayer_peer():
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()

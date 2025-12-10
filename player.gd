@@ -1,15 +1,18 @@
 class_name Player
 extends CharacterBody2D
 
-@export var spawn_position = Vector2.ZERO
+var spawn_position: Vector2
 
 const SPEED: float = 200.0
 const OFFSET: float = 0.1
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
-	position = spawn_position
 	#Lobby.debug_log("enter tree: "+$LPCAnimatedSprite2D.spritesheets_path)
+
+@rpc("call_local", "reliable", "authority")
+func fix_position(new_position: Vector2):
+	position = new_position
 
 func _ready() -> void:
 	Lobby.debug_log("spawn position: " + str(spawn_position))
