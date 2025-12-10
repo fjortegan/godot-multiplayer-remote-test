@@ -12,7 +12,7 @@ func _enter_tree() -> void:
 	#Lobby.debug_log("enter tree: "+$LPCAnimatedSprite2D.spritesheets_path)
 
 func _ready() -> void:
-	#Lobby.debug_log("spawn position: " + str(spawn_position))
+	Lobby.debug_log("spawn position: " + str(spawn_position))
 	position = spawn_position
 
 func _physics_process(_delta: float) -> void:

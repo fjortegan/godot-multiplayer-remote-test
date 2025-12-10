@@ -1,6 +1,74 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjxqkmnqibdfu"]
+[gd_scene load_steps=23 format=3 uid="uid://cjxqkmnqibdfu"]
 
 [ext_resource type="Script" uid="uid://dbpj7katxvwne" path="res://net_init.gd" id="1_jujhb"]
+[ext_resource type="PackedScene" uid="uid://dk0tygl1c8st1" path="res://avatar_select.tscn" id="2_oxo3m"]
+[ext_resource type="Shader" uid="uid://bhm61sfqsg2hv" path="res://shaders/outline.gdshader" id="3_hrfal"]
+[ext_resource type="Resource" uid="uid://bbh454capi25j" path="res://resources/p1.tres" id="3_wfrqk"]
+[ext_resource type="Resource" uid="uid://b38nfipjcd0iq" path="res://resources/p2.tres" id="5_akolw"]
+[ext_resource type="Resource" uid="uid://cjqxifaurvhax" path="res://resources/p3.tres" id="6_xq3pq"]
+[ext_resource type="Resource" uid="uid://xqddodemmwyq" path="res://resources/p4.tres" id="7_16idy"]
+[ext_resource type="Resource" uid="uid://byqu4nmt5qh48" path="res://resources/p5.tres" id="8_ouukt"]
+[ext_resource type="Resource" uid="uid://c7cqxx4bebfeo" path="res://resources/p6.tres" id="9_3dcek"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_akolw"]
+resource_local_to_scene = true
+shader = ExtResource("3_hrfal")
+shader_parameter/enabled = false
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 3.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xq3pq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_16idy"]
+resource_local_to_scene = true
+shader = ExtResource("3_hrfal")
+shader_parameter/enabled = false
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 3.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ouukt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3dcek"]
+resource_local_to_scene = true
+shader = ExtResource("3_hrfal")
+shader_parameter/enabled = false
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 3.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0taji"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qpu51"]
+resource_local_to_scene = true
+shader = ExtResource("3_hrfal")
+shader_parameter/enabled = false
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 3.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_b1nny"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2sffw"]
+resource_local_to_scene = true
+shader = ExtResource("3_hrfal")
+shader_parameter/enabled = false
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 3.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ekpgy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yqhex"]
+resource_local_to_scene = true
+shader = ExtResource("3_hrfal")
+shader_parameter/enabled = false
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 3.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_m6xq4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jujhb"]
 bg_color = Color(0.401942, 0.68324, 0.319943, 1)
@@ -8,89 +76,132 @@ bg_color = Color(0.401942, 0.68324, 0.319943, 1)
 [node name="NetInit" type="Node2D"]
 script = ExtResource("1_jujhb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MainContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 73.0
-offset_top = 33.0
-offset_right = 568.0
-offset_bottom = 254.0
+offset_left = 64.0
+offset_top = 47.0
+offset_right = 563.0
+offset_bottom = 336.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="MainContainer"]
 layout_mode = 2
 text = "Multiplayer Lobby"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="PlayerNameContainer" type="HBoxContainer" parent="MainContainer"]
 layout_mode = 2
 
-[node name="PlayerNameLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="PlayerNameLabel" type="Label" parent="MainContainer/PlayerNameContainer"]
 layout_mode = 2
 text = "Player Name:"
 
-[node name="PlayerNameInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+[node name="PlayerNameInput" type="LineEdit" parent="MainContainer/PlayerNameContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Enter your name"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="AvatarContainer" type="HBoxContainer" parent="MainContainer"]
 layout_mode = 2
 
-[node name="IpLabel" type="Label" parent="VBoxContainer/HBoxContainer2"]
+[node name="AvatarLabel" type="Label" parent="MainContainer/AvatarContainer"]
+layout_mode = 2
+text = "Avatar:"
+
+[node name="Avatar1" parent="MainContainer/AvatarContainer" instance=ExtResource("2_oxo3m")]
+material = SubResource("ShaderMaterial_akolw")
+layout_mode = 2
+texture_normal = SubResource("ViewportTexture_xq3pq")
+avatar = ExtResource("3_wfrqk")
+
+[node name="Avatar2" parent="MainContainer/AvatarContainer" instance=ExtResource("2_oxo3m")]
+material = SubResource("ShaderMaterial_16idy")
+layout_mode = 2
+texture_normal = SubResource("ViewportTexture_ouukt")
+avatar = ExtResource("5_akolw")
+
+[node name="Avatar3" parent="MainContainer/AvatarContainer" instance=ExtResource("2_oxo3m")]
+material = SubResource("ShaderMaterial_3dcek")
+layout_mode = 2
+texture_normal = SubResource("ViewportTexture_0taji")
+avatar = ExtResource("6_xq3pq")
+
+[node name="Avatar4" parent="MainContainer/AvatarContainer" instance=ExtResource("2_oxo3m")]
+material = SubResource("ShaderMaterial_qpu51")
+layout_mode = 2
+texture_normal = SubResource("ViewportTexture_b1nny")
+avatar = ExtResource("7_16idy")
+
+[node name="Avatar5" parent="MainContainer/AvatarContainer" instance=ExtResource("2_oxo3m")]
+material = SubResource("ShaderMaterial_2sffw")
+layout_mode = 2
+texture_normal = SubResource("ViewportTexture_ekpgy")
+avatar = ExtResource("8_ouukt")
+
+[node name="Avatar6" parent="MainContainer/AvatarContainer" instance=ExtResource("2_oxo3m")]
+material = SubResource("ShaderMaterial_yqhex")
+layout_mode = 2
+texture_normal = SubResource("ViewportTexture_m6xq4")
+avatar = ExtResource("9_3dcek")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+
+[node name="IpLabel" type="Label" parent="MainContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Server IP:"
 
-[node name="IpInput" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
+[node name="IpInput" type="LineEdit" parent="MainContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "127.0.0.1"
 placeholder_text = "127.0.0.1"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MainContainer"]
 layout_mode = 2
 
-[node name="PortLabel" type="Label" parent="VBoxContainer/HBoxContainer3"]
+[node name="PortLabel" type="Label" parent="MainContainer/HBoxContainer3"]
 layout_mode = 2
 text = "Port:"
 
-[node name="PortInput" type="LineEdit" parent="VBoxContainer/HBoxContainer3"]
+[node name="PortInput" type="LineEdit" parent="MainContainer/HBoxContainer3"]
 layout_mode = 2
-text = "8910"
-placeholder_text = "8910"
+text = "7000"
+placeholder_text = "7000"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+[node name="ButtonsContainer" type="HBoxContainer" parent="MainContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 30
 
-[node name="ServerButton" type="Button" parent="VBoxContainer/HBoxContainer4"]
+[node name="ServerButton" type="Button" parent="MainContainer/ButtonsContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_jujhb")
 text = "Start Server"
 
-[node name="ClientButton" type="Button" parent="VBoxContainer/HBoxContainer4"]
+[node name="ClientButton" type="Button" parent="MainContainer/ButtonsContainer"]
 layout_mode = 2
 text = "Connect to Server"
 
-[node name="StartGameButton" type="Button" parent="VBoxContainer"]
+[node name="StartGameButton" type="Button" parent="MainContainer"]
 visible = false
 layout_mode = 2
 text = "Start Game"
 
-[node name="StatusLabel" type="Label" parent="VBoxContainer"]
+[node name="StatusLabel" type="Label" parent="MainContainer"]
 layout_mode = 2
 text = "Status: Ready"
 
-[node name="PlayersLabel" type="Label" parent="VBoxContainer"]
+[node name="PlayersLabel" type="Label" parent="MainContainer"]
 layout_mode = 2
 text = "Connected Players:"
 
-[node name="PlayerList" type="VBoxContainer" parent="VBoxContainer"]
+[node name="PlayerList" type="VBoxContainer" parent="MainContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer4/ServerButton" to="." method="_on_server_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer4/ClientButton" to="." method="_on_client_pressed"]
+[connection signal="pressed" from="MainContainer/ButtonsContainer/ServerButton" to="." method="_on_server_pressed"]
+[connection signal="pressed" from="MainContainer/ButtonsContainer/ClientButton" to="." method="_on_client_pressed"]
