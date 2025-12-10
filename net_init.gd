@@ -12,6 +12,8 @@ func _on_server_pressed() -> void:
 	disable_buttons(true)
 
 func _on_client_pressed() -> void:
+	if not _required_data():
+		return
 	Lobby.join_game()
 	Lobby.player_connected.connect(_on_joined_game)
 	disable_buttons(true)
@@ -33,4 +35,7 @@ func _required_data() -> bool:
 	if not SelectionManager.selected_avatar:
 		statuslabel.text += "Avatar required "
 		result = false
+	if result:
+		Lobby.player_info["name"] = playername.text
+		Lobby.player_info["avatar"] = SelectionManager.avatar
 	return result

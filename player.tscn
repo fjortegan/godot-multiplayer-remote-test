@@ -4326,6 +4326,12 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("LPCAnimatedSprite2D:animation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("Nickname:text")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("LPCAnimatedSprite2D:spritesheets_path")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 motion_mode = 1
@@ -4338,8 +4344,18 @@ shape = SubResource("RectangleShape2D_7jktm")
 
 [node name="LPCAnimatedSprite2D" parent="." instance=ExtResource("2_onrkg")]
 sprite_frames = SubResource("SpriteFrames_3xdjv")
-frame_progress = 0.0757718
+frame_progress = 0.409718
 animation_data = SubResource("Resource_0anxw")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_p0npm")
+
+[node name="Nickname" type="RichTextLabel" parent="."]
+offset_left = -19.0
+offset_top = -49.0
+offset_right = 21.0
+offset_bottom = -9.0
+theme_override_font_sizes/normal_font_size = 8
+text = "nickname"
+horizontal_alignment = 1
+vertical_alignment = 1

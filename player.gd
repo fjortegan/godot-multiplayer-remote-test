@@ -8,12 +8,14 @@ const OFFSET: float = 0.1
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
-	$LPCAnimatedSprite2D.spritesheets_path = "res://images/characters/p" + ("1" if name == "1" else "2")
+	position = spawn_position
 	#Lobby.debug_log("enter tree: "+$LPCAnimatedSprite2D.spritesheets_path)
 
 func _ready() -> void:
 	Lobby.debug_log("spawn position: " + str(spawn_position))
-	position = spawn_position
+	if is_multiplayer_authority():
+		$LPCAnimatedSprite2D.spritesheets_path = "res://images/characters/" + Lobby.player_info["avatar"].id
+		$Nickname.text = Lobby.player_info["name"]
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return 
