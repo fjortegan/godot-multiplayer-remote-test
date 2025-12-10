@@ -5,8 +5,9 @@
 [ext_resource type="Script" uid="uid://cifhoyyj5yy5w" path="res://multiplayer_spawner.gd" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://dt608kbd42agm" path="res://player.tscn" id="4_fc0e3"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("spawners")]
 script = ExtResource("1_80nbo")
+spawners = [NodePath("Spawners/MultiplayerSpawner1"), NodePath("Spawners/MultiplayerSpawner2"), NodePath("Spawners/MultiplayerSpawner3"), NodePath("Spawners/MultiplayerSpawner4")]
 
 [node name="Button1" parent="." instance=ExtResource("2_7jktm")]
 position = Vector2(274, 234)
@@ -14,11 +15,42 @@ position = Vector2(274, 234)
 [node name="Button2" parent="." instance=ExtResource("2_7jktm")]
 position = Vector2(387, 235)
 
-[node name="Players" type="Node2D" parent="."]
-position = Vector2(329, 209)
+[node name="Spawners" type="Node2D" parent="."]
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="MultiplayerSpawner1" type="MultiplayerSpawner" parent="Spawners"]
 _spawnable_scenes = PackedStringArray("uid://dt608kbd42agm")
-spawn_path = NodePath("../Players")
+spawn_path = NodePath("../../Players/Player1")
 script = ExtResource("3_feb5d")
 network_player = ExtResource("4_fc0e3")
+
+[node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="Spawners"]
+_spawnable_scenes = PackedStringArray("uid://dt608kbd42agm")
+spawn_path = NodePath("../../Players/Player2")
+script = ExtResource("3_feb5d")
+network_player = ExtResource("4_fc0e3")
+
+[node name="MultiplayerSpawner3" type="MultiplayerSpawner" parent="Spawners"]
+_spawnable_scenes = PackedStringArray("uid://dt608kbd42agm")
+spawn_path = NodePath("../../Players/Player3")
+script = ExtResource("3_feb5d")
+network_player = ExtResource("4_fc0e3")
+
+[node name="MultiplayerSpawner4" type="MultiplayerSpawner" parent="Spawners"]
+_spawnable_scenes = PackedStringArray("uid://dt608kbd42agm")
+spawn_path = NodePath("../../Players/Player4")
+script = ExtResource("3_feb5d")
+network_player = ExtResource("4_fc0e3")
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Player1" type="Node2D" parent="Players"]
+position = Vector2(138, 232)
+
+[node name="Player2" type="Node2D" parent="Players"]
+position = Vector2(331, 119)
+
+[node name="Player3" type="Node2D" parent="Players"]
+position = Vector2(551, 227)
+
+[node name="Player4" type="Node2D" parent="Players"]
+position = Vector2(335, 353)

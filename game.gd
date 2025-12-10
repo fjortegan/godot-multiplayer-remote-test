@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var spawners: Array[MultiplayerSpawner]
+
 var pressed_buttons: int = 0
 
 func _ready():
@@ -17,10 +19,10 @@ func _input(event):
 func start_game():
 	# All peers are ready to receive RPCs in this scene.
 	#Lobby.debug_log("game started: " + str(multiplayer.get_unique_id()))
-	var posx = -180
+	var i = 0
 	for id in Lobby.players:
-		$MultiplayerSpawner.spawn_player(id, posx)
-		posx += 180
+		spawners[i%4].spawn_player(id)
+		i+=1
 	$Button1.activation.connect(_on_button_pressed)
 	$Button2.activation.connect(_on_button_pressed)
 

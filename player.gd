@@ -1,21 +1,13 @@
 class_name Player
 extends CharacterBody2D
 
-var spawn_position: Vector2
-
 const SPEED: float = 200.0
 const OFFSET: float = 0.1
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
-	#Lobby.debug_log("enter tree: "+$LPCAnimatedSprite2D.spritesheets_path)
-
-@rpc("call_local", "reliable", "authority")
-func fix_position(new_position: Vector2):
-	position = new_position
 
 func _ready() -> void:
-	Lobby.debug_log("spawn position: " + str(spawn_position))
 	if is_multiplayer_authority():
 		$LPCAnimatedSprite2D.spritesheets_path = "res://images/characters/" + Lobby.player_info["avatar"].id
 		$Nickname.text = Lobby.player_info["name"]
