@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://87ypdb6oj28m"]
+[gd_scene load_steps=6 format=3 uid="uid://87ypdb6oj28m"]
 
 [ext_resource type="Script" uid="uid://cq381wf0v0b3" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://cw78m2hk3gj32" path="res://button.tscn" id="2_7jktm"]
 [ext_resource type="Script" uid="uid://cifhoyyj5yy5w" path="res://multiplayer_spawner.gd" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://dt608kbd42agm" path="res://player.tscn" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://bswgmxp16yce5" path="res://scenes/door.tscn" id="5_7jktm"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("spawners")]
 script = ExtResource("1_80nbo")
@@ -13,7 +14,17 @@ spawners = [NodePath("Spawners/MultiplayerSpawner1"), NodePath("Spawners/Multipl
 position = Vector2(274, 234)
 
 [node name="Button2" parent="." instance=ExtResource("2_7jktm")]
-position = Vector2(387, 235)
+position = Vector2(399, 235)
+
+[node name="Button3" parent="." instance=ExtResource("2_7jktm")]
+position = Vector2(334, 194)
+
+[node name="Button4" parent="." instance=ExtResource("2_7jktm")]
+position = Vector2(334, 280)
+
+[node name="DoorSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bswgmxp16yce5")
+spawn_path = NodePath("../Node2D")
 
 [node name="Spawners" type="Node2D" parent="."]
 
@@ -54,3 +65,10 @@ position = Vector2(551, 227)
 
 [node name="Player4" type="Node2D" parent="Players"]
 position = Vector2(335, 353)
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(335, 242)
+
+[node name="Door" parent="Node2D" instance=ExtResource("5_7jktm")]
+visible = false
+position = Vector2(-1, -5)

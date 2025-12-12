@@ -25,10 +25,20 @@ func start_game():
 		i+=1
 	$Button1.activation.connect(_on_button_pressed)
 	$Button2.activation.connect(_on_button_pressed)
-
+	$Button3.activation.connect(_on_button_pressed)
+	$Button4.activation.connect(_on_button_pressed)
+	
 func _on_button_pressed(status: bool):
 	if status:
 		pressed_buttons += 1
 	else:
 		pressed_buttons -= 1 
 	Lobby.debug_log("pressed buttons "+str(pressed_buttons))
+	
+	if pressed_buttons >= 4:
+		Lobby.debug_log("visible...")
+		var door_scene: PackedScene = load("res://scenes/door.tscn")
+		var instance = door_scene.instantiate()
+		instance.name = "door"
+		get_node("Node2D").call_deferred("add_child", instance)
+		#$Node2D/Door.show_door.rpc()
