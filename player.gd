@@ -11,6 +11,8 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 		$LPCAnimatedSprite2D.spritesheets_path = "res://images/characters/" + Lobby.player_info["avatar"].id
 		$Nickname.text = Lobby.player_info["name"]
+		$Nickname.add_theme_font_size_override("font_size", 12)
+		$Nickname.add_theme_color_override("font_color", Color.LAWN_GREEN)
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return 

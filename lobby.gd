@@ -23,6 +23,7 @@ var players = {}
 var player_info = {"name": "Player 1", "avatar": "p1"}
 
 var players_loaded = 0
+var game_started: bool = false
 
 func _ready():
 	multiplayer.peer_connected.connect(_on_player_connected)
@@ -56,6 +57,7 @@ func create_game():
 	game_start.connect(_on_game_started)
 
 func _on_game_started():
+	game_started = true
 	load_game.rpc("res://game.tscn")	
 
 func start_game():

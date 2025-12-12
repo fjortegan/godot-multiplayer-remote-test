@@ -1,10 +1,23 @@
 extends Node2D
 
+@export var player_info_list: PackedScene
+
 @onready var playername = $MainContainer/PlayerNameContainer/PlayerNameInput
 @onready var serverbutton = $MainContainer/ButtonsContainer/ServerButton
 @onready var clientbutton = $MainContainer/ButtonsContainer/ClientButton
 @onready var statuslabel = $MainContainer/StatusLabel
 @onready var startgamebutton = $MainContainer/StartGameButton
+@onready var player_list = $MainContainer/PlayerList
+
+func _ready() -> void:
+	Lobby.player_connected.connect(_on_player_connected)
+
+func _on_player_connected(id, player_info):
+	var info_list = player_info_list.instantiate()
+	info_list.id = id
+	info_list.player_info = player_info
+	player_list.add_child(info_list)
+	
 
 func _on_server_pressed() -> void:
 	if not _required_data():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cjxqkmnqibdfu"]
+[gd_scene load_steps=18 format=3 uid="uid://cjxqkmnqibdfu"]
 
 [ext_resource type="Script" uid="uid://dbpj7katxvwne" path="res://net_init.gd" id="1_jujhb"]
 [ext_resource type="PackedScene" uid="uid://dk0tygl1c8st1" path="res://avatar_select.tscn" id="2_oxo3m"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://xqddodemmwyq" path="res://resources/p4.tres" id="7_16idy"]
 [ext_resource type="Resource" uid="uid://byqu4nmt5qh48" path="res://resources/p5.tres" id="8_ouukt"]
 [ext_resource type="Resource" uid="uid://c7cqxx4bebfeo" path="res://resources/p6.tres" id="9_3dcek"]
+[ext_resource type="PackedScene" uid="uid://bhdd2yibs0k5p" path="res://player_info_list.tscn" id="10_xq3pq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_akolw"]
 resource_local_to_scene = true
@@ -63,6 +64,7 @@ bg_color = Color(0.401942, 0.68324, 0.319943, 1)
 
 [node name="NetInit" type="Node2D"]
 script = ExtResource("1_jujhb")
+player_info_list = ExtResource("10_xq3pq")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
