@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+@export var bullet: PackedScene
+
 const SPEED: float = 200.0
 const OFFSET: float = 0.1
 
@@ -14,6 +16,12 @@ func _ready() -> void:
 		$Nickname.add_theme_font_size_override("font_size", 12)
 		$Nickname.add_theme_color_override("font_color", Color.LAWN_GREEN)
 
+func _input(event: InputEvent) -> void:
+	if not is_multiplayer_authority(): return 
+	if event.is_action_pressed("ui_accept"):
+		shoot.rpc(velocity)
+	
+
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return 
 	velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") * SPEED
@@ -22,6 +30,13 @@ func _physics_process(_delta: float) -> void:
 	else:
 		$LPCAnimatedSprite2D.play_animation("walk", _direction_string(velocity))
 	move_and_slide()
+
+@rpc("call_local", "any_peer", "reliable")
+func shoot(_velocity):
+	var instance: RigidBody2D = bullet.instantiate()
+	instance.velocity = _velocity
+	instance.global_position = global_position
+	get_tree().root.add_child(instance)
 
 func _direction_string(value: Vector2) -> String:
 	var direction = "south"

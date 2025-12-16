@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bycswt6ok8pon"
-path="res://.godot/imported/watering.png-2bf27d1f6e4a94d47ae12f6da5f929e4.ctex"
+uid="uid://byojsbltin7qa"
+path="res://.godot/imported/bullet.png-b8b54b6b71d624c9ad9bcb20a09421c7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/characters/p6/standard/watering.png"
-dest_files=["res://.godot/imported/watering.png-2bf27d1f6e4a94d47ae12f6da5f929e4.ctex"]
+source_file="res://images/bullet.png"
+dest_files=["res://.godot/imported/bullet.png-b8b54b6b71d624c9ad9bcb20a09421c7.ctex"]
 
 [params]
 
