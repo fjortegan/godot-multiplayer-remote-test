@@ -21,7 +21,7 @@ func start_game():
 	#Lobby.debug_log("game started: " + str(multiplayer.get_unique_id()))
 	var i = 0
 	for id in Lobby.players:
-		spawners[i%4].spawn_player(id)
+		spawners[i%4].spawn_player(id, i)
 		i+=1
 	$Button1.activation.connect(_on_button_pressed)
 	$Button2.activation.connect(_on_button_pressed)
