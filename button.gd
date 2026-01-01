@@ -5,12 +5,12 @@ signal activation(status: bool)
 
 func _on_area_2d_body_entered(_body: Node2D) -> void:
 	_highlight()
-	Lobby.debug_log(name)
+	#Lobby.debug_log(name)
 
 
 func _on_area_2d_body_exited(_body: Node2D) -> void:
 	_highlight(false)
-	Lobby.debug_log("no " + name)
+	#Lobby.debug_log("no " + name)
 
 func _highlight(status: bool = true) -> void:
 	active = status

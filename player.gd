@@ -8,7 +8,7 @@ var player_layers: Array[int] = [1, 2, 4, 8]
 var bullet_layers: Array[int] = [16, 32, 64, 128]
 var collision_masks: Array[int] = [238, 221, 187, 119]
 
-var time_left: float = 500000
+var time_left: float = 50
 var alive_timer: Timer
 
 const SPEED: float = 200.0
@@ -49,7 +49,7 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return 
-	$Nickname.text = Lobby.player_info["name"] + " " + str(alive_timer.time_left) + "s"
+	$Nickname.text = Lobby.player_info["name"] + " %.0f s" % alive_timer.time_left
 	velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") * SPEED
 	if velocity == Vector2.ZERO:
 		$LPCAnimatedSprite2D.play_animation("idle", "south")
