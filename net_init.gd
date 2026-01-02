@@ -8,9 +8,10 @@ extends Node2D
 @onready var statuslabel = $MainContainer/StatusLabel
 @onready var startgamebutton = $MainContainer/StartGameButton
 @onready var player_list = $MainContainer/PlayerList
+@onready var portinput = $MainContainer/HBoxContainer3/PortInput
 
 func _ready() -> void:
-	Lobby.player_connected.connect(_on_player_connected)
+	SteamLobby.player_connected.connect(_on_player_connected)
 
 func _on_player_connected(id, player_info):
 	var info_list = player_info_list.instantiate()
@@ -22,17 +23,17 @@ func _on_player_connected(id, player_info):
 func _on_server_pressed() -> void:
 	if not _required_data():
 		return
-	Lobby.create_game()
+	SteamLobby.create_game()
 	disable_buttons(true)
 	startgamebutton.visible = true
 
 func _on_start_pressed():
-	Lobby.start_game()
+	SteamLobby.start_game()
 
 func _on_client_pressed() -> void:
 	if not _required_data():
 		return
-	Lobby.join_game()
+	SteamLobby.join_game(portinput.text)
 	#Lobby.player_connected.connect(_on_joined_game)
 	disable_buttons(true)
 
@@ -45,7 +46,7 @@ func disable_buttons(status=false):
 	##Lobby.game_start.connect(_on_game_started)
 
 func _on_game_started():
-	Lobby.load_game("res://game.tscn")
+	SteamLobby.load_game("res://game.tscn")
 
 func _required_data() -> bool:
 	statuslabel.text = "Status: "
@@ -58,6 +59,6 @@ func _required_data() -> bool:
 		result = false
 	if result:
 		statuslabel.text += "Waiting "
-		Lobby.player_info["name"] = playername.text
-		Lobby.player_info["avatar"] = SelectionManager.avatar
+		SteamLobby.player_info["name"] = playername.text
+		SteamLobby.player_info["avatar"] = SelectionManager.avatar
 	return result
