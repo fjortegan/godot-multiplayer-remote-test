@@ -36,7 +36,7 @@ func _ready():
 		Steam.initRelayNetworkAccess()
 	#Steam.lobby_game_created.connect(_on_lobby_game_created)
 	print("Steam Status: %s" % steam_status)
-	#multiplayer.peer_connected.connect(_on_player_connected)
+	multiplayer.peer_connected.connect(_on_player_connected)
 	#multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	#multiplayer.connected_to_server.connect(_on_connected_ok)
 	#multiplayer.connection_failed.connect(_on_connected_fail)
@@ -44,7 +44,7 @@ func _ready():
 
 
 func join_game(_lobby_id = "0"):
-	debug_log("Joining Lobby")
+	debug_log("Joining Lobby %s" % _lobby_id)
 	Steam.joinLobby(_lobby_id.to_int())
 	#if address.is_empty():
 		#address = DEFAULT_SERVER_IP
@@ -59,6 +59,7 @@ func _on_lobby_joined(_lobby_id: int, _permissions: int, _locked: bool, _respons
 	lobby_id = _lobby_id
 	steam_peer.server_relay = true
 	steam_peer.create_client(Steam.getLobbyOwner(lobby_id))
+	debug_log("Looby joined: %d" % _lobby_id)
 	multiplayer.multiplayer_peer = steam_peer
 	
 func create_game():
