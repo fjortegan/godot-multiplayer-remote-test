@@ -13,6 +13,9 @@ extends Node2D
 
 func _ready() -> void:
 	SteamLobby.player_connected.connect(_on_player_connected)
+	### debug only
+	playername.text = "server"
+	SelectionManager.select_avatar(std_avatar)
 
 func _on_player_connected(id, player_info):
 	var info_list = player_info_list.instantiate()

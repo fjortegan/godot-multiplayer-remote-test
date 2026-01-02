@@ -65,6 +65,7 @@ bg_color = Color(0.401942, 0.68324, 0.319943, 1)
 [node name="NetInit" type="Node2D"]
 script = ExtResource("1_jujhb")
 player_info_list = ExtResource("10_xq3pq")
+std_avatar = ExtResource("3_wfrqk")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
