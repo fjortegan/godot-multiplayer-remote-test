@@ -18,7 +18,7 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
-	Lobby.debug_log("player collision mask: " + str(collision_mask))
+	SteamLobby.debug_log("player collision mask: " + str(collision_mask))
 	alive_timer = Timer.new()
 	alive_timer.wait_time = time_left
 	alive_timer.autostart = true
@@ -27,8 +27,8 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 		collision_layer = player_layers[index]
 		collision_mask = collision_masks[index]
-		$LPCAnimatedSprite2D.spritesheets_path = "res://images/characters/" + Lobby.player_info["avatar"].id
-		$Nickname.text = Lobby.player_info["name"]
+		$LPCAnimatedSprite2D.spritesheets_path = "res://images/characters/" + SteamLobby.player_info["avatar"].id
+		$Nickname.text = SteamLobby.player_info["name"]
 		$Nickname.add_theme_font_size_override("font_size", 12)
 		$Nickname.add_theme_color_override("font_color", Color.LAWN_GREEN)
 
@@ -49,7 +49,7 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return 
-	$Nickname.text = Lobby.player_info["name"] + " %.0f s" % alive_timer.time_left
+	$Nickname.text = SteamLobby.player_info["name"] + " %.0f s" % alive_timer.time_left
 	velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") * SPEED
 	if velocity == Vector2.ZERO:
 		$LPCAnimatedSprite2D.play_animation("idle", "south")

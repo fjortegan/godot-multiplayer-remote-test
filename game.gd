@@ -7,7 +7,7 @@ var pressed_buttons: int = 0
 func _ready():
 	# Preconfigure game.
 	if not multiplayer.is_server():
-		Lobby.player_loaded.rpc_id(1) # Tell the server that this peer has loaded.
+		SteamLobby.player_loaded.rpc_id(1) # Tell the server that this peer has loaded.
 	else:
 		start_game()
 
@@ -20,7 +20,7 @@ func start_game():
 	# All peers are ready to receive RPCs in this scene.
 	#Lobby.debug_log("game started: " + str(multiplayer.get_unique_id()))
 	var i = 0
-	for id in Lobby.players:
+	for id in SteamLobby.players:
 		spawners[i%4].spawn_player(id, i)
 		i+=1
 	$Button1.activation.connect(_on_button_pressed)
@@ -33,10 +33,10 @@ func _on_button_pressed(status: bool):
 		pressed_buttons += 1
 	else:
 		pressed_buttons -= 1 
-	Lobby.debug_log("pressed buttons "+str(pressed_buttons))
+	SteamLobby.debug_log("pressed buttons "+str(pressed_buttons))
 	
 	if pressed_buttons >= 4:
-		Lobby.debug_log("visible...")
+		SteamLobby.debug_log("visible...")
 		var door_scene: PackedScene = load("res://scenes/door.tscn")
 		var instance = door_scene.instantiate()
 		instance.name = "door"

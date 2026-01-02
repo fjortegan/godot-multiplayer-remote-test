@@ -21,7 +21,6 @@ func _on_player_connected(id, player_info):
 	var info_list = player_info_list.instantiate()
 	info_list.id = id
 	info_list.player_info = player_info
-	info_list.std_avatar = std_avatar
 	player_list.add_child(info_list)
 	
 
@@ -66,4 +65,5 @@ func _required_data() -> bool:
 		statuslabel.text += "Waiting "
 		SteamLobby.player_info["name"] = playername.text
 		SteamLobby.player_info["avatar"] = SelectionManager.avatar
+		SteamLobby.player_info["avatar_id"] = SelectionManager.avatar.id
 	return result

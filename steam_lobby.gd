@@ -18,7 +18,7 @@ var players = {}
 # before the connection is made. It will be passed to every other peer.
 # For example, the value of "name" can be set to something the player
 # entered in a UI scene.
-var player_info = {"name": "Player 1", "avatar": "p1"}
+var player_info = {"name": "Player 1", "avatar_id": "p1"}
 
 var players_loaded = 0
 var game_started: bool = false
@@ -56,11 +56,12 @@ func join_game(_lobby_id = "0"):
 	#Lobby.debug_log("game joined " + str(peer.get_unique_id()))
 
 func _on_lobby_joined(_lobby_id: int, _permissions: int, _locked: bool, _response: int):
-	lobby_id = _lobby_id
-	steam_peer.server_relay = true
-	steam_peer.create_client(Steam.getLobbyOwner(lobby_id))
-	debug_log("Looby joined: %d" % _lobby_id)
-	multiplayer.multiplayer_peer = steam_peer
+	if not is_host:
+		lobby_id = _lobby_id
+		steam_peer.server_relay = true
+		steam_peer.create_client(Steam.getLobbyOwner(lobby_id))
+		debug_log("Lobby joined: %d" % _lobby_id)
+		multiplayer.multiplayer_peer = steam_peer
 	
 func create_game():
 	debug_log("Creating Lobby")
