@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var player_info_list: PackedScene
+@export var std_avatar: Avatar
 
 @onready var playername = $MainContainer/PlayerNameContainer/PlayerNameInput
 @onready var serverbutton = $MainContainer/ButtonsContainer/ServerButton
@@ -17,6 +18,7 @@ func _on_player_connected(id, player_info):
 	var info_list = player_info_list.instantiate()
 	info_list.id = id
 	info_list.player_info = player_info
+	info_list.std_avatar = std_avatar
 	player_list.add_child(info_list)
 	
 
