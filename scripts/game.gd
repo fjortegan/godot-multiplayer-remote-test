@@ -25,7 +25,6 @@ func start_game_server():
 	else:
 		Global.current_lobby.player_loaded.rpc_id(1) # Tell the server that this peer has loaded.
 
-
 func _on_button_pressed(status: bool):
 	if status:
 		pressed_buttons += 1

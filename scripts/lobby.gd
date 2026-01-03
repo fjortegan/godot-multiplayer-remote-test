@@ -15,12 +15,17 @@ var players = {}
 # entered in a UI scene.
 var player_info = {"name": "Player 1", "avatar": "p1"}
 
-var players_loaded = 0
+var players_loaded = 1
 var game_started: bool = false
+var game_scene
 
 func _on_game_started(game_scene_path):
 	game_started = true
-	load_game.rpc(game_scene_path)
+	game_scene = game_scene_path
+	if players.size() > 1:
+		load_game.rpc(game_scene_path)
+	else:
+		load_game(game_scene)
 
 func start_game(game_scene_path):
 	game_start.emit(game_scene_path)
@@ -31,7 +36,7 @@ func remove_multiplayer_peer():
 
 # When the server decides to start the game from a UI scene,
 # do Lobby.load_game.rpc(filepath)
-@rpc("call_local", "reliable")
+@rpc("call_remote", "reliable")
 func load_game(game_scene_path):
 	get_tree().change_scene_to_file(game_scene_path)
 
@@ -41,12 +46,12 @@ func player_loaded():
 	#Lobby.debug_log("loading player")
 	if multiplayer.is_server():
 		players_loaded += 1
-		#Lobby.debug_log("player loaded "+str(players_loaded))
+		debug_log("player loaded "+str(players_loaded))
 		#Lobby.load_game("res://game.tscn")
 
-		#if players_loaded == players.size():
-			#$/root/Game.start_game()
-			#players_loaded = 0
+		if players_loaded == players.size():
+			load_game(game_scene)
+			players_loaded = 0
 
 # When a peer connects, send them my player info.
 # This allows transfer of all desired data for each player, not only the unique ID.
