@@ -28,7 +28,7 @@ func join_game(address = "", port = 0):
 	if address.is_empty(): address = DEFAULT_SERVER_IP
 	if port == 0: port = DEFAULT_PORT
 	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(address, port)
-	if error:
-		return error
+	var result = peer.create_client(address, port)
+	if result:
+		return result
 	multiplayer.multiplayer_peer = peer

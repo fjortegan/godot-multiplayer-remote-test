@@ -20,7 +20,6 @@ var game_started: bool = false
 var game_scene
 
 func _on_game_started(game_scene_path):
-	game_started = true
 	game_scene = game_scene_path
 	if players.size() > 1:
 		load_game.rpc(game_scene_path)
@@ -29,10 +28,6 @@ func _on_game_started(game_scene_path):
 
 func start_game(game_scene_path):
 	game_start.emit(game_scene_path)
-
-func remove_multiplayer_peer():
-	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
-	players.clear()
 
 # When the server decides to start the game from a UI scene,
 # do Lobby.load_game.rpc(filepath)
@@ -45,17 +40,18 @@ func load_game(game_scene_path):
 func player_loaded():
 	#Lobby.debug_log("loading player")
 	if multiplayer.is_server():
+		debug_log("client loaded "+str(players_loaded))
 		players_loaded += 1
-		debug_log("player loaded "+str(players_loaded))
-		#Lobby.load_game("res://game.tscn")
-
 		if players_loaded == players.size():
+			game_started = true
 			load_game(game_scene)
-			players_loaded = 0
 
 # When a peer connects, send them my player info.
 # This allows transfer of all desired data for each player, not only the unique ID.
 func _on_player_connected(id):
+	if game_started:
+		_game_has_started.rpc_id(id)
+		return
 	_register_player.rpc_id(id, player_info)
 
 @rpc("any_peer", "reliable")
@@ -64,6 +60,11 @@ func _register_player(new_player_info):
 	players[new_player_id] = new_player_info
 	player_connected.emit(new_player_id, new_player_info)
 	#Lobby.debug_log("register player " + str(new_player_id))
+
+@rpc("any_peer", "call_remote", "reliable")
+func _game_has_started():
+	remove_multiplayer_peer()
+	server_disconnected.emit()
 
 func _on_player_disconnected(id):
 	players.erase(id)
@@ -79,8 +80,11 @@ func _on_connected_fail():
 
 func _on_server_disconnected():
 	remove_multiplayer_peer()
-	players.clear()
 	server_disconnected.emit()
+
+func remove_multiplayer_peer():
+	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
+	players.clear()
 
 func debug_log(text: String):
 	print(str(Time.get_ticks_msec())+"ms ("+str(multiplayer.get_unique_id()) + "): " + text)

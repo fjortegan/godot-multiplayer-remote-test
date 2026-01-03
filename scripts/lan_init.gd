@@ -17,6 +17,7 @@ func _ready() -> void:
 	LANLobby.init()
 	Global.current_lobby = LANLobby
 	LANLobby.player_connected.connect(_on_player_connected)
+	LANLobby.server_disconnected.connect(_on_server_disconnected)
 	
 	portinput.text = str(LANLobby.DEFAULT_PORT)
 	ipinput.text = LANLobby.DEFAULT_SERVER_IP
@@ -62,6 +63,10 @@ func disable_buttons(status=false):
 
 func _on_game_started():
 	LANLobby.load_game(game_scene)
+
+func _on_server_disconnected():
+	print("SERVER DISCONNECTED")
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _required_data() -> bool:
 	statuslabel.text = "Status: "
