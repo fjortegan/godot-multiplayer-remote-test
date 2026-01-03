@@ -13,8 +13,8 @@ func _ready() -> void:
 	var avatar_image
 	var avatar = player_info["avatar"]
 	if avatar is EncodedObjectAsID:
-		avatar = load("res://images/characters/"+player_info["avatar_id"]+".png")
-		avatar = instance_from_id(player_info["avatar"].get_object_id())
+		avatar =  load("res://images/characters/"+player_info["avatar_id"]+".png") as Avatar		
+		#avatar = instance_from_id(player_info["avatar"].get_object_id())
 	avatar_image = avatar.image
 		
 	avatar_img.texture = avatar_image
