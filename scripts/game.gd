@@ -9,7 +9,7 @@ func _ready():
 	if not multiplayer.is_server():
 		Global.current_lobby.player_loaded.rpc_id(1) # Tell the server that this peer has loaded.
 	else:
-		start_game()
+		call_deferred("start_game")
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
