@@ -2,6 +2,7 @@ extends Node2D
 
 @export var player_info_list: PackedScene
 @export var std_avatar: Avatar
+@export var game_scene: PackedScene
 
 @onready var playername = $MainContainer/PlayerNameContainer/PlayerNameInput
 @onready var serverbutton = $MainContainer/ButtonsContainer/ServerButton
@@ -12,12 +13,15 @@ extends Node2D
 @onready var portinput = $MainContainer/HBoxContainer3/PortInput
 
 func _ready() -> void:
+	SteamLobby.init()
 	SteamLobby.player_connected.connect(_on_player_connected)
+	
 	### debug only
-	playername.text = "server"
-	SelectionManager.select_avatar(std_avatar)
+	playername.text = Steam.getFriendPersonaName(Steam.getSteamID())
+	get_node("MainContainer/AvatarContainer/Avatar1")._on_pressed()
 
 func _on_player_connected(id, player_info):
+	# TODO: Refactor
 	var info_list = player_info_list.instantiate()
 	info_list.id = id
 	info_list.player_info = player_info
@@ -67,3 +71,6 @@ func _required_data() -> bool:
 		SteamLobby.player_info["avatar"] = SelectionManager.avatar
 		SteamLobby.player_info["avatar_id"] = SelectionManager.avatar.id
 	return result
+
+func _on_exit_pressed() -> void:
+	get_tree().quit()

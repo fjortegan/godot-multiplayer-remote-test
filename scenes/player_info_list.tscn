@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bhdd2yibs0k5p"]
 
-[ext_resource type="Script" uid="uid://cy35c26r4u0jn" path="res://player_info_list.gd" id="1_nblow"]
+[ext_resource type="Script" uid="uid://cy35c26r4u0jn" path="res://scripts/player_info_list.gd" id="1_nblow"]
 [ext_resource type="Texture2D" uid="uid://blqjqtqr84x84" path="res://images/characters/p1.png" id="2_mx0h4"]
 
 [node name="Player" type="HBoxContainer"]

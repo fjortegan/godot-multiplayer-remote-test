@@ -11,15 +11,16 @@ config_version=5
 [application]
 
 config/name="godot-multiplayer-25-26"
-run/main_scene="uid://cjxqkmnqibdfu"
+run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.5")
-config/icon="res://icon.svg"
+config/icon="res://images/icon.svg"
 
 [autoload]
 
-Lobby="res://lobby.gd"
-SelectionManager="*res://selection_manager.gd"
-SteamLobby="*res://steam_lobby.gd"
+SelectionManager="*res://scripts/selection_manager.gd"
+LANLobby="*res://scripts/lan_lobby.gd"
+SteamLobby="*res://scripts/steam_lobby.gd"
+Global="*res://scripts/global.gd"
 
 [editor_plugins]
 
@@ -76,5 +77,5 @@ ui_down={
 
 initialization/app_id=480
 initialization/initialize_on_startup=false
-initialization/embed_callbacks=false
+initialization/embed_callbacks=true
 multiplayer_peer/max_channels=4

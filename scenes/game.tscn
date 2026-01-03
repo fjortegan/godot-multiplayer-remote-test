@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://87ypdb6oj28m"]
 
-[ext_resource type="Script" uid="uid://cq381wf0v0b3" path="res://game.gd" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://cw78m2hk3gj32" path="res://button.tscn" id="2_7jktm"]
-[ext_resource type="Script" uid="uid://cifhoyyj5yy5w" path="res://multiplayer_spawner.gd" id="3_feb5d"]
-[ext_resource type="PackedScene" uid="uid://dt608kbd42agm" path="res://player.tscn" id="4_fc0e3"]
+[ext_resource type="Script" uid="uid://cq381wf0v0b3" path="res://scripts/game.gd" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://cw78m2hk3gj32" path="res://scenes/button.tscn" id="2_7jktm"]
+[ext_resource type="Script" uid="uid://cifhoyyj5yy5w" path="res://scripts/multiplayer_spawner.gd" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://dt608kbd42agm" path="res://scenes/player.tscn" id="4_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://bswgmxp16yce5" path="res://scenes/door.tscn" id="5_7jktm"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("spawners")]

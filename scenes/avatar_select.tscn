@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://bhm61sfqsg2hv" path="res://shaders/outline.gdshader" id="1_7cxsu"]
 [ext_resource type="Texture2D" uid="uid://blqjqtqr84x84" path="res://images/characters/p1.png" id="1_tb7tu"]
-[ext_resource type="Script" uid="uid://bsm2xgo62neco" path="res://avatar_select.gd" id="2_07tn8"]
+[ext_resource type="Script" uid="uid://bsm2xgo62neco" path="res://scripts/avatar_select.gd" id="2_07tn8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qgu7y"]
 resource_local_to_scene = true
