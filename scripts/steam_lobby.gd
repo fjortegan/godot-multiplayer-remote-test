@@ -15,12 +15,12 @@ func init():
 			Steam.lobby_joined.connect(_on_lobby_joined)
 			Steam.initRelayNetworkAccess()
 		multiplayer.peer_connected.connect(_on_player_connected)
+		multiplayer.peer_disconnected.connect(_on_player_disconnected)
+		multiplayer.connected_to_server.connect(_on_connected_ok)
+		multiplayer.connection_failed.connect(_on_connected_fail)
+		multiplayer.server_disconnected.connect(_on_server_disconnected)
 		#Steam.lobby_game_created.connect(_on_lobby_game_created)
 		debug_log("Steam Status: %s" % steam_status)
-		#multiplayer.peer_disconnected.connect(_on_player_disconnected)
-		#multiplayer.connected_to_server.connect(_on_connected_ok)
-		#multiplayer.connection_failed.connect(_on_connected_fail)
-		#multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 func create_game():
 	debug_log("Creating Lobby")

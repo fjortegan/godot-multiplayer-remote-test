@@ -66,6 +66,7 @@ func _game_has_started():
 	server_disconnected.emit()
 
 func _on_player_disconnected(id):
+	debug_log("player disconnected %d" % id)
 	players.erase(id)
 	player_disconnected.emit(id)
 
