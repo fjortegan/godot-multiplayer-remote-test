@@ -1,7 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://ce3whhexodeq"]
+[gd_scene load_steps=19 format=3 uid="uid://ce3whhexodeq"]
 
 [ext_resource type="Script" uid="uid://kfd0ikbl6ccv" path="res://scripts/steam_init.gd" id="1_l7yh2"]
+[ext_resource type="PackedScene" uid="uid://bhdd2yibs0k5p" path="res://scenes/player_info_list.tscn" id="2_qbdcp"]
 [ext_resource type="Resource" uid="uid://bbh454capi25j" path="res://resources/p1.tres" id="3_6r74s"]
+[ext_resource type="PackedScene" uid="uid://87ypdb6oj28m" path="res://scenes/game.tscn" id="4_qvjsr"]
 [ext_resource type="PackedScene" uid="uid://dk0tygl1c8st1" path="res://scenes/avatar_select.tscn" id="5_c3dpn"]
 [ext_resource type="Shader" uid="uid://bhm61sfqsg2hv" path="res://shaders/outline.gdshader" id="6_joid1"]
 [ext_resource type="Resource" uid="uid://b38nfipjcd0iq" path="res://resources/p2.tres" id="7_mnfq4"]
@@ -63,6 +65,9 @@ bg_color = Color(0.401942, 0.68324, 0.319943, 1)
 
 [node name="SteamInit" type="Node2D"]
 script = ExtResource("1_l7yh2")
+player_info_list = ExtResource("2_qbdcp")
+std_avatar = ExtResource("3_6r74s")
+game_scene = ExtResource("4_qvjsr")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 offset_left = 9.0

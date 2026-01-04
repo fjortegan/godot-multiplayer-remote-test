@@ -14,6 +14,7 @@ extends Node2D
 
 func _ready() -> void:
 	SteamLobby.init()
+	Global.current_lobby = SteamLobby
 	SteamLobby.player_connected.connect(_on_player_connected)
 	
 	### debug only
