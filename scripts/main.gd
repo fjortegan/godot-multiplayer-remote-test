@@ -6,7 +6,7 @@ func _input(event):
 		get_tree().quit()
 
 func _on_steam_button_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://scenes/steam_init.tscn")
 
 func _on_lan_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/lan_init.tscn")

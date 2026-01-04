@@ -4,13 +4,13 @@ extends Node2D
 @export var std_avatar: Avatar
 @export var game_scene: PackedScene
 
-@onready var playername = $MainContainer/PlayerNameContainer/PlayerNameInput
-@onready var serverbutton = $MainContainer/ButtonsContainer/ServerButton
-@onready var clientbutton = $MainContainer/ButtonsContainer/ClientButton
-@onready var statuslabel = $MainContainer/StatusLabel
-@onready var startgamebutton = $MainContainer/StartGameButton
+@onready var playername = $MainContainer/FormContainer/PlayerNameContainer/PlayerNameInput
+@onready var serverbutton = $MainContainer/FormContainer/ButtonsContainer/ServerButton
+@onready var clientbutton = $MainContainer/FormContainer/ButtonsContainer/ClientButton
+@onready var statuslabel = $MainContainer/FormContainer/StatusLabel
+@onready var startgamebutton = $MainContainer/FormContainer/StartGameButton
 @onready var player_list = $MainContainer/PlayerList
-@onready var portinput = $MainContainer/HBoxContainer3/PortInput
+@onready var lobbyinput = $MainContainer/FormContainer/HBoxContainer2/LobbyInput
 
 func _ready() -> void:
 	SteamLobby.init()
@@ -18,7 +18,7 @@ func _ready() -> void:
 	
 	### debug only
 	playername.text = Steam.getFriendPersonaName(Steam.getSteamID())
-	get_node("MainContainer/AvatarContainer/Avatar1")._on_pressed()
+	get_node("MainContainer/FormContainer/AvatarContainer/Avatar1")._on_pressed()
 
 func _on_player_connected(id, player_info):
 	# TODO: Refactor
@@ -26,7 +26,6 @@ func _on_player_connected(id, player_info):
 	info_list.id = id
 	info_list.player_info = player_info
 	player_list.add_child(info_list)
-	
 
 func _on_server_pressed() -> void:
 	if not _required_data():
@@ -36,12 +35,12 @@ func _on_server_pressed() -> void:
 	startgamebutton.visible = true
 
 func _on_start_pressed():
-	SteamLobby.start_game()
+	SteamLobby.start_game(game_scene.resource_path)
 
 func _on_client_pressed() -> void:
 	if not _required_data():
 		return
-	SteamLobby.join_game(portinput.text)
+	SteamLobby.join_game(lobbyinput.text)
 	#Lobby.player_connected.connect(_on_joined_game)
 	disable_buttons(true)
 
@@ -53,8 +52,8 @@ func disable_buttons(status=false):
 	#Lobby.debug_log("joining game: "+str(player_info)+" ("+str(peer_id)+")")
 	##Lobby.game_start.connect(_on_game_started)
 
-func _on_game_started():
-	SteamLobby.load_game("res://game.tscn")
+#func _on_game_started():
+	#SteamLobby.load_game("res://game.tscn")
 
 func _required_data() -> bool:
 	statuslabel.text = "Status: "

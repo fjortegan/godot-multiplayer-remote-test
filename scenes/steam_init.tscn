@@ -1,9 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://ce3whhexodeq"]
+[gd_scene load_steps=17 format=3 uid="uid://ce3whhexodeq"]
 
 [ext_resource type="Script" uid="uid://kfd0ikbl6ccv" path="res://scripts/steam_init.gd" id="1_l7yh2"]
-[ext_resource type="PackedScene" uid="uid://bhdd2yibs0k5p" path="res://scenes/player_info_list.tscn" id="2_qvjsr"]
 [ext_resource type="Resource" uid="uid://bbh454capi25j" path="res://resources/p1.tres" id="3_6r74s"]
-[ext_resource type="PackedScene" uid="uid://87ypdb6oj28m" path="res://scenes/game.tscn" id="4_kisqx"]
 [ext_resource type="PackedScene" uid="uid://dk0tygl1c8st1" path="res://scenes/avatar_select.tscn" id="5_c3dpn"]
 [ext_resource type="Shader" uid="uid://bhm61sfqsg2hv" path="res://shaders/outline.gdshader" id="6_joid1"]
 [ext_resource type="Resource" uid="uid://b38nfipjcd0iq" path="res://resources/p2.tres" id="7_mnfq4"]
@@ -65,143 +63,125 @@ bg_color = Color(0.401942, 0.68324, 0.319943, 1)
 
 [node name="SteamInit" type="Node2D"]
 script = ExtResource("1_l7yh2")
-player_info_list = ExtResource("2_qvjsr")
-std_avatar = ExtResource("3_6r74s")
-game_scene = ExtResource("4_kisqx")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 64.0
-offset_top = 47.0
-offset_right = 1041.0
-offset_bottom = 383.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+offset_left = 9.0
+offset_top = 26.0
+offset_right = 1141.0
+offset_bottom = 635.0
 
-[node name="TitleLabel" type="Label" parent="MainContainer"]
+[node name="FormContainer" type="VBoxContainer" parent="MainContainer"]
 layout_mode = 2
-text = "Multiplayer Lobby"
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="TitleLabel" type="Label" parent="MainContainer/FormContainer"]
+layout_mode = 2
+text = "Steam Lobby"
 horizontal_alignment = 1
 
-[node name="PlayerNameContainer" type="HBoxContainer" parent="MainContainer"]
+[node name="PlayerNameContainer" type="HBoxContainer" parent="MainContainer/FormContainer"]
 layout_mode = 2
 
-[node name="PlayerNameLabel" type="Label" parent="MainContainer/PlayerNameContainer"]
+[node name="PlayerNameLabel" type="Label" parent="MainContainer/FormContainer/PlayerNameContainer"]
 layout_mode = 2
 text = "Player Name:"
 
-[node name="PlayerNameInput" type="LineEdit" parent="MainContainer/PlayerNameContainer"]
+[node name="PlayerNameInput" type="LineEdit" parent="MainContainer/FormContainer/PlayerNameContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Enter your name"
 
-[node name="AvatarContainer" type="HBoxContainer" parent="MainContainer"]
+[node name="AvatarContainer" type="HBoxContainer" parent="MainContainer/FormContainer"]
 layout_mode = 2
 
-[node name="AvatarLabel" type="Label" parent="MainContainer/AvatarContainer"]
+[node name="AvatarLabel" type="Label" parent="MainContainer/FormContainer/AvatarContainer"]
 layout_mode = 2
 text = "Avatar:"
 
-[node name="Avatar1" parent="MainContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
+[node name="Avatar1" parent="MainContainer/FormContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
 material = SubResource("ShaderMaterial_akolw")
 layout_mode = 2
 avatar = ExtResource("3_6r74s")
 
-[node name="Avatar2" parent="MainContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
+[node name="Avatar2" parent="MainContainer/FormContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
 material = SubResource("ShaderMaterial_16idy")
 layout_mode = 2
 avatar = ExtResource("7_mnfq4")
 
-[node name="Avatar3" parent="MainContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
+[node name="Avatar3" parent="MainContainer/FormContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
 material = SubResource("ShaderMaterial_3dcek")
 layout_mode = 2
 avatar = ExtResource("8_v2ogy")
 
-[node name="Avatar4" parent="MainContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
+[node name="Avatar4" parent="MainContainer/FormContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
 material = SubResource("ShaderMaterial_qpu51")
 layout_mode = 2
 avatar = ExtResource("9_eigfk")
 
-[node name="Avatar5" parent="MainContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
+[node name="Avatar5" parent="MainContainer/FormContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
 material = SubResource("ShaderMaterial_2sffw")
 layout_mode = 2
 avatar = ExtResource("10_mttnt")
 
-[node name="Avatar6" parent="MainContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
+[node name="Avatar6" parent="MainContainer/FormContainer/AvatarContainer" instance=ExtResource("5_c3dpn")]
 material = SubResource("ShaderMaterial_yqhex")
 layout_mode = 2
 avatar = ExtResource("11_id5pu")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainContainer/FormContainer"]
 layout_mode = 2
 
-[node name="IpLabel" type="Label" parent="MainContainer/HBoxContainer2"]
+[node name="LobbyLabel" type="Label" parent="MainContainer/FormContainer/HBoxContainer2"]
 layout_mode = 2
-text = "Server IP:"
+text = "Lobby ID:"
 
-[node name="IpInput" type="LineEdit" parent="MainContainer/HBoxContainer2"]
+[node name="LobbyInput" type="LineEdit" parent="MainContainer/FormContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "127.0.0.1"
-placeholder_text = "127.0.0.1"
+placeholder_text = "Server lobby ID"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MainContainer"]
-layout_mode = 2
-
-[node name="PortLabel" type="Label" parent="MainContainer/HBoxContainer3"]
-layout_mode = 2
-text = "Port:"
-
-[node name="PortInput" type="LineEdit" parent="MainContainer/HBoxContainer3"]
-layout_mode = 2
-text = "7000"
-placeholder_text = "7000"
-
-[node name="ButtonsContainer" type="HBoxContainer" parent="MainContainer"]
+[node name="ButtonsContainer" type="HBoxContainer" parent="MainContainer/FormContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 30
 
-[node name="ServerButton" type="Button" parent="MainContainer/ButtonsContainer"]
+[node name="ServerButton" type="Button" parent="MainContainer/FormContainer/ButtonsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_jujhb")
 text = "Start Server"
 
-[node name="ClientButton" type="Button" parent="MainContainer/ButtonsContainer"]
+[node name="ClientButton" type="Button" parent="MainContainer/FormContainer/ButtonsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Connect to Server"
 
-[node name="StartGameButton" type="Button" parent="MainContainer"]
+[node name="StartGameButton" type="Button" parent="MainContainer/FormContainer"]
 visible = false
 layout_mode = 2
 text = "Start Game"
 
-[node name="StatusLabel" type="Label" parent="MainContainer"]
+[node name="StatusLabel" type="Label" parent="MainContainer/FormContainer"]
 layout_mode = 2
 text = "Status: Ready"
-
-[node name="PlayersLabel" type="Label" parent="MainContainer"]
-layout_mode = 2
-text = "Connected Players:"
 
 [node name="PlayerList" type="VBoxContainer" parent="MainContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="PlayersLabel" type="Label" parent="MainContainer/PlayerList"]
+layout_mode = 2
+text = "Connected Players:"
+
 [node name="ExitButton" type="Button" parent="."]
-offset_left = 1085.0
-offset_top = 16.0
-offset_right = 1127.0
-offset_bottom = 47.0
+offset_left = 1098.0
+offset_top = 12.0
+offset_right = 1140.0
+offset_bottom = 43.0
 text = "Exit"
 
-[connection signal="pressed" from="MainContainer/ButtonsContainer/ServerButton" to="." method="_on_server_pressed"]
-[connection signal="pressed" from="MainContainer/ButtonsContainer/ClientButton" to="." method="_on_client_pressed"]
-[connection signal="pressed" from="MainContainer/StartGameButton" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MainContainer/FormContainer/ButtonsContainer/ServerButton" to="." method="_on_server_pressed"]
+[connection signal="pressed" from="MainContainer/FormContainer/ButtonsContainer/ClientButton" to="." method="_on_client_pressed"]
+[connection signal="pressed" from="MainContainer/FormContainer/StartGameButton" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_pressed"]

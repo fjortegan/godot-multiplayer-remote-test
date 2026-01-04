@@ -82,7 +82,7 @@ size_flags_vertical = 0
 
 [node name="TitleLabel" type="Label" parent="MainContainer/FormContainer"]
 layout_mode = 2
-text = "Multiplayer Lobby"
+text = "LAN Lobby"
 horizontal_alignment = 1
 
 [node name="PlayerNameContainer" type="HBoxContainer" parent="MainContainer/FormContainer"]

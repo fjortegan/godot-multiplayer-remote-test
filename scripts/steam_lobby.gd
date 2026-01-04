@@ -1,22 +1,26 @@
 extends Lobby
 
+const MAX_CONNECTIONS = 20
+
 var is_host: bool = false
 var lobby_id: int
 var steam_peer : SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 
 func init():
-	var steam_status = Steam.steamInit(480, true)
-	if steam_status:
-		Steam.lobby_created.connect(_on_lobby_created)
-		Steam.lobby_joined.connect(_on_lobby_joined)
-		Steam.initRelayNetworkAccess()
-	#Steam.lobby_game_created.connect(_on_lobby_game_created)
-	debug_log("Steam Status: %s" % steam_status)
-	multiplayer.peer_connected.connect(_on_player_connected)
-	#multiplayer.peer_disconnected.connect(_on_player_disconnected)
-	#multiplayer.connected_to_server.connect(_on_connected_ok)
-	#multiplayer.connection_failed.connect(_on_connected_fail)
-	#multiplayer.server_disconnected.connect(_on_server_disconnected)
+	if not initialized:
+		initialized = true
+		var steam_status = Steam.steamInit(480, true)
+		if steam_status:
+			Steam.lobby_created.connect(_on_lobby_created)
+			Steam.lobby_joined.connect(_on_lobby_joined)
+			Steam.initRelayNetworkAccess()
+		multiplayer.peer_connected.connect(_on_player_connected)
+		#Steam.lobby_game_created.connect(_on_lobby_game_created)
+		debug_log("Steam Status: %s" % steam_status)
+		#multiplayer.peer_disconnected.connect(_on_player_disconnected)
+		#multiplayer.connected_to_server.connect(_on_connected_ok)
+		#multiplayer.connection_failed.connect(_on_connected_fail)
+		#multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 func create_game():
 	debug_log("Creating Lobby")
