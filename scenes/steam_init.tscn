@@ -167,6 +167,22 @@ visible = false
 layout_mode = 2
 text = "Start Game"
 
+[node name="ButtonsContainer2" type="HBoxContainer" parent="MainContainer/FormContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+
+[node name="OverlayButton" type="Button" parent="MainContainer/FormContainer/ButtonsContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_jujhb")
+text = "Steam Overlay"
+
+[node name="InviteButton" type="Button" parent="MainContainer/FormContainer/ButtonsContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Invite Friend"
+
 [node name="StatusLabel" type="Label" parent="MainContainer/FormContainer"]
 layout_mode = 2
 text = "Status: Ready"
@@ -189,4 +205,6 @@ text = "Exit"
 [connection signal="pressed" from="MainContainer/FormContainer/ButtonsContainer/ServerButton" to="." method="_on_server_pressed"]
 [connection signal="pressed" from="MainContainer/FormContainer/ButtonsContainer/ClientButton" to="." method="_on_client_pressed"]
 [connection signal="pressed" from="MainContainer/FormContainer/StartGameButton" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MainContainer/FormContainer/ButtonsContainer2/OverlayButton" to="." method="_on_overlay_button_pressed"]
+[connection signal="pressed" from="MainContainer/FormContainer/ButtonsContainer2/InviteButton" to="." method="_on_invite_button_pressed"]
 [connection signal="pressed" from="ExitButton" to="." method="_on_exit_pressed"]

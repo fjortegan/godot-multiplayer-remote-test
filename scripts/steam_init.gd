@@ -83,3 +83,11 @@ func _required_data() -> bool:
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_overlay_button_pressed() -> void:
+	Steam.activateGameOverlay()
+
+
+func _on_invite_button_pressed() -> void:
+	Steam.activateGameOverlayInviteDialog(SteamLobby.lobby_id)
