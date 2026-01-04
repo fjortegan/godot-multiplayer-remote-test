@@ -1,6 +1,6 @@
 extends Lobby
 
-const MAX_CONNECTIONS = 20
+const MAX_CONNECTIONS = 4
 
 var is_host: bool = false
 var lobby_id: int
@@ -24,7 +24,7 @@ func init():
 
 func create_game():
 	debug_log("Creating Lobby")
-	Steam.createLobby(Steam.LOBBY_TYPE_FRIENDS_ONLY, 2)
+	Steam.createLobby(Steam.LOBBY_TYPE_FRIENDS_ONLY, MAX_CONNECTIONS)
 	is_host = true
 
 func _on_lobby_created(_result:int, _lobby_id:int):
