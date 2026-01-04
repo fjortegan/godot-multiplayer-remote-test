@@ -5,11 +5,13 @@ const DEFAULT_SERVER_IP = "127.0.0.1" # IPv4 localhost
 const MAX_CONNECTIONS = 20
 
 func init():
-	multiplayer.peer_connected.connect(_on_player_connected)
-	multiplayer.peer_disconnected.connect(_on_player_disconnected)
-	multiplayer.connected_to_server.connect(_on_connected_ok)
-	multiplayer.connection_failed.connect(_on_connected_fail)
-	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	if not initialized:
+		initialized = true
+		multiplayer.peer_connected.connect(_on_player_connected)
+		multiplayer.peer_disconnected.connect(_on_player_disconnected)
+		multiplayer.connected_to_server.connect(_on_connected_ok)
+		multiplayer.connection_failed.connect(_on_connected_fail)
+		multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 func create_game(port = 0):
 	if port == 0: port = DEFAULT_PORT

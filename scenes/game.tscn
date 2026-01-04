@@ -10,21 +10,23 @@
 script = ExtResource("1_80nbo")
 spawners = [NodePath("Spawners/MultiplayerSpawner1"), NodePath("Spawners/MultiplayerSpawner2"), NodePath("Spawners/MultiplayerSpawner3"), NodePath("Spawners/MultiplayerSpawner4")]
 
-[node name="Button1" parent="." instance=ExtResource("2_7jktm")]
+[node name="Buttons" type="Node2D" parent="."]
+
+[node name="Button1" parent="Buttons" instance=ExtResource("2_7jktm")]
 position = Vector2(274, 234)
 
-[node name="Button2" parent="." instance=ExtResource("2_7jktm")]
+[node name="Button2" parent="Buttons" instance=ExtResource("2_7jktm")]
 position = Vector2(399, 235)
 
-[node name="Button3" parent="." instance=ExtResource("2_7jktm")]
+[node name="Button3" parent="Buttons" instance=ExtResource("2_7jktm")]
 position = Vector2(334, 194)
 
-[node name="Button4" parent="." instance=ExtResource("2_7jktm")]
+[node name="Button4" parent="Buttons" instance=ExtResource("2_7jktm")]
 position = Vector2(334, 280)
 
 [node name="DoorSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://bswgmxp16yce5")
-spawn_path = NodePath("../Node2D")
+spawn_path = NodePath("../Doors")
 
 [node name="Spawners" type="Node2D" parent="."]
 
@@ -53,6 +55,7 @@ script = ExtResource("3_feb5d")
 network_player = ExtResource("4_fc0e3")
 
 [node name="Players" type="Node2D" parent="."]
+position = Vector2(0, -1)
 
 [node name="Player1" type="Node2D" parent="Players"]
 position = Vector2(138, 232)
@@ -66,9 +69,9 @@ position = Vector2(551, 227)
 [node name="Player4" type="Node2D" parent="Players"]
 position = Vector2(335, 353)
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Doors" type="Node2D" parent="."]
 position = Vector2(335, 242)
 
-[node name="Door" parent="Node2D" instance=ExtResource("5_7jktm")]
+[node name="Door" parent="Doors" instance=ExtResource("5_7jktm")]
 visible = false
 position = Vector2(-1, -5)

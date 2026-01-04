@@ -2,6 +2,7 @@ class_name Lobby extends Node
 
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
+signal connection_failed
 signal server_disconnected
 signal game_start(scene_path)
 
@@ -15,32 +16,31 @@ var players = {}
 # entered in a UI scene.
 var player_info = {"name": "Player 1", "avatar": "p1"}
 
+var initialized: bool = false
 var players_loaded = 1
 var game_started: bool = false
 var game_scene
 
-func _on_game_started(game_scene_path):
-	game_scene = game_scene_path
+func _on_game_started(_game_scene):
+	game_scene = _game_scene
 	if players.size() > 1:
-		load_game.rpc(game_scene_path)
+		load_game.rpc(_game_scene)
 	else:
-		load_game(game_scene)
+		load_game(_game_scene)
 
-func start_game(game_scene_path):
-	game_start.emit(game_scene_path)
+func start_game(_game_scene):
+	game_start.emit(_game_scene)
 
 # When the server decides to start the game from a UI scene,
 # do Lobby.load_game.rpc(filepath)
 @rpc("call_remote", "reliable")
-func load_game(game_scene_path):
-	get_tree().change_scene_to_file(game_scene_path)
+func load_game(_game_scene: String):
+	get_tree().change_scene_to_file(_game_scene)
 
 # Every peer will call this when they have loaded the game scene.
 @rpc("any_peer", "call_local", "reliable")
 func player_loaded():
-	#Lobby.debug_log("loading player")
 	if multiplayer.is_server():
-		debug_log("client loaded "+str(players_loaded))
 		players_loaded += 1
 		if players_loaded == players.size():
 			game_started = true
@@ -59,7 +59,6 @@ func _register_player(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
 	players[new_player_id] = new_player_info
 	player_connected.emit(new_player_id, new_player_info)
-	#Lobby.debug_log("register player " + str(new_player_id))
 
 @rpc("any_peer", "call_remote", "reliable")
 func _game_has_started():
@@ -77,6 +76,7 @@ func _on_connected_ok():
 
 func _on_connected_fail():
 	remove_multiplayer_peer()
+	connection_failed.emit()
 
 func _on_server_disconnected():
 	remove_multiplayer_peer()
@@ -88,4 +88,3 @@ func remove_multiplayer_peer():
 
 func debug_log(text: String):
 	print(str(Time.get_ticks_msec())+"ms ("+str(multiplayer.get_unique_id()) + "): " + text)
-	

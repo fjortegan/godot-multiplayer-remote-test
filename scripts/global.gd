@@ -1,3 +1,3 @@
 extends Node
 
-var current_lobby
+var current_lobby: Lobby

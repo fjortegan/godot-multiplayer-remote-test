@@ -4,27 +4,28 @@ extends Node2D
 @export var std_avatar: Avatar
 @export var game_scene: PackedScene
 
-@onready var playername = $MainContainer/PlayerNameContainer/PlayerNameInput
-@onready var serverbutton = $MainContainer/ButtonsContainer/ServerButton
-@onready var clientbutton = $MainContainer/ButtonsContainer/ClientButton
-@onready var statuslabel = $MainContainer/StatusLabel
-@onready var startgamebutton = $MainContainer/StartGameButton
+@onready var playername = $MainContainer/FormContainer/PlayerNameContainer/PlayerNameInput
+@onready var serverbutton = $MainContainer/FormContainer/ButtonsContainer/ServerButton
+@onready var clientbutton = $MainContainer/FormContainer/ButtonsContainer/ClientButton
+@onready var statuslabel = $MainContainer/FormContainer/StatusLabel
+@onready var startgamebutton = $MainContainer/FormContainer/StartGameButton
 @onready var player_list = $MainContainer/PlayerList
-@onready var portinput = $MainContainer/HBoxContainer3/PortInput
-@onready var ipinput = $MainContainer/HBoxContainer2/IpInput
+@onready var portinput = $MainContainer/FormContainer/HBoxContainer3/PortInput
+@onready var ipinput = $MainContainer/FormContainer/HBoxContainer2/IpInput
 
 func _ready() -> void:
 	LANLobby.init()
 	Global.current_lobby = LANLobby
 	LANLobby.player_connected.connect(_on_player_connected)
 	LANLobby.server_disconnected.connect(_on_server_disconnected)
+	LANLobby.connection_failed.connect(_on_connection_failed)
 	
 	portinput.text = str(LANLobby.DEFAULT_PORT)
 	ipinput.text = LANLobby.DEFAULT_SERVER_IP
 	
 	### debug only
 	playername.text = "debug player"
-	get_node("MainContainer/AvatarContainer/Avatar1")._on_pressed()
+	get_node("MainContainer/FormContainer/AvatarContainer/Avatar1")._on_pressed()
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
@@ -35,6 +36,10 @@ func _on_player_connected(id, player_info):
 	info_list.id = id
 	info_list.player_info = player_info
 	player_list.add_child(info_list)
+
+func _on_connection_failed():
+	statuslabel.text = "Status: Connection failed"
+	disable_buttons(false)
 
 func _on_server_pressed() -> void:
 	if not _required_data():
@@ -50,7 +55,6 @@ func _on_client_pressed() -> void:
 	if not _required_data():
 		return
 	LANLobby.join_game(ipinput.text, portinput.text.to_int())
-	#Lobby.player_connected.connect(_on_joined_game)
 	disable_buttons(true)
 
 func disable_buttons(status=false):
@@ -61,11 +65,10 @@ func disable_buttons(status=false):
 	#Lobby.debug_log("joining game: "+str(player_info)+" ("+str(peer_id)+")")
 	##Lobby.game_start.connect(_on_game_started)
 
-func _on_game_started():
-	LANLobby.load_game(game_scene)
+#func _on_game_started():
+	#LANLobby.load_game(game_scene.resource_path)
 
 func _on_server_disconnected():
-	print("SERVER DISCONNECTED")
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _required_data() -> bool:

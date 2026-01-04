@@ -8,17 +8,19 @@ var player_layers: Array[int] = [1, 2, 4, 8]
 var bullet_layers: Array[int] = [16, 32, 64, 128]
 var collision_masks: Array[int] = [238, 221, 187, 119]
 
-var time_left: float = 50
+var time_left: float = 5000
 var alive_timer: Timer
 
 const SPEED: float = 200.0
 const OFFSET: float = 0.1
 
 func _enter_tree() -> void:
+	#Global.current_lobby.debug_log("Player name: %s" % name)
+	#Global.current_lobby.debug_log("Player path: %s" % get_path())
 	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
-	Global.current_lobby.debug_log("player collision mask: " + str(collision_mask))
+	#Global.current_lobby.debug_log("player collision mask: " + str(collision_mask))
 	alive_timer = Timer.new()
 	alive_timer.wait_time = time_left
 	alive_timer.autostart = true
