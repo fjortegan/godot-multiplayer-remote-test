@@ -16,7 +16,9 @@ func _ready() -> void:
 	SteamLobby.init()
 	Global.current_lobby = SteamLobby
 	SteamLobby.player_connected.connect(_on_player_connected)
-	
+	SteamLobby.server_disconnected.connect(_on_server_disconnected)
+	SteamLobby.connection_failed.connect(_on_connection_failed)
+
 	### debug only
 	playername.text = Steam.getFriendPersonaName(Steam.getSteamID())
 	get_node("MainContainer/FormContainer/AvatarContainer/Avatar1")._on_pressed()
@@ -27,6 +29,10 @@ func _on_player_connected(id, player_info):
 	info_list.id = id
 	info_list.player_info = player_info
 	player_list.add_child(info_list)
+
+func _on_connection_failed():
+	statuslabel.text = "Status: Connection failed"
+	disable_buttons(false)
 
 func _on_server_pressed() -> void:
 	if not _required_data():
@@ -48,6 +54,9 @@ func _on_client_pressed() -> void:
 func disable_buttons(status=false):
 	serverbutton.disabled = status
 	clientbutton.disabled = status
+
+func _on_server_disconnected():
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 #func _on_joined_game(peer_id, player_info):
 	#Lobby.debug_log("joining game: "+str(player_info)+" ("+str(peer_id)+")")
