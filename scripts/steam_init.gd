@@ -15,6 +15,7 @@ extends Node2D
 func _ready() -> void:
 	SteamLobby.init()
 	Global.current_lobby = SteamLobby
+	Steam.join_requested.connect(_on_join_requested)
 	SteamLobby.player_connected.connect(_on_player_connected)
 	SteamLobby.server_disconnected.connect(_on_server_disconnected)
 	SteamLobby.connection_failed.connect(_on_connection_failed)
@@ -47,9 +48,16 @@ func _on_start_pressed():
 func _on_client_pressed() -> void:
 	if not _required_data():
 		return
-	SteamLobby.join_game(lobbyinput.text)
+	SteamLobby.join_game(lobbyinput.text.to_int())
 	#Lobby.player_connected.connect(_on_joined_game)
 	disable_buttons(true)
+
+
+func _on_join_requested(_lobby_id: int, _friend_id: int) -> void:
+	if not _required_data():
+		return
+	lobbyinput.text = str(_lobby_id)
+	SteamLobby.join_game(_lobby_id)
 
 func disable_buttons(status=false):
 	serverbutton.disabled = status

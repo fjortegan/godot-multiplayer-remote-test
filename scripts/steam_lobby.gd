@@ -13,7 +13,6 @@ func init():
 		if steam_status:
 			Steam.lobby_created.connect(_on_lobby_created)
 			Steam.lobby_joined.connect(_on_lobby_joined)
-			Steam.join_requested.connect(_on_join_requested)
 			Steam.initRelayNetworkAccess()
 		multiplayer.peer_connected.connect(_on_player_connected)
 		multiplayer.peer_disconnected.connect(_on_player_disconnected)
@@ -43,9 +42,9 @@ func _on_lobby_created(_result:int, _lobby_id:int):
 	else:
 		debug_log("Connection error: %d" % _result)
 
-func join_game(_lobby_id = "0"):
-	debug_log("Joining Lobby %s" % _lobby_id)
-	Steam.joinLobby(_lobby_id.to_int())
+func join_game(_lobby_id: int = 0):
+	debug_log("Joining Lobby %d" % _lobby_id)
+	Steam.joinLobby(_lobby_id)
 
 func _on_lobby_joined(_lobby_id: int, _permissions: int, _locked: bool, _response: int):
 	if not is_host:
@@ -54,6 +53,3 @@ func _on_lobby_joined(_lobby_id: int, _permissions: int, _locked: bool, _respons
 		steam_peer.create_client(Steam.getLobbyOwner(lobby_id))
 		debug_log("Lobby joined: %d" % _lobby_id)
 		multiplayer.multiplayer_peer = steam_peer
-
-func _on_join_requested(_lobby_id: int, _friend_id: int) -> void:
-	join_game(str(_lobby_id))
