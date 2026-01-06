@@ -15,7 +15,9 @@ extends Node2D
 func _ready() -> void:
 	SteamLobby.init()
 	Global.current_lobby = SteamLobby
+	# event callback when invited by friend
 	Steam.join_requested.connect(_on_join_requested)
+	# events from lobby
 	SteamLobby.player_connected.connect(_on_player_connected)
 	SteamLobby.server_created.connect(_on_server_created)
 	SteamLobby.server_disconnected.connect(_on_server_disconnected)
@@ -25,17 +27,6 @@ func _ready() -> void:
 	playername.text = Steam.getFriendPersonaName(Steam.getSteamID())
 	get_node("MainContainer/FormContainer/AvatarContainer/Avatar1")._on_pressed()
 
-func _on_player_connected(id, player_info):
-	# TODO: Refactor
-	var info_list = player_info_list.instantiate()
-	info_list.id = id
-	info_list.player_info = player_info
-	player_list.add_child(info_list)
-
-func _on_connection_failed():
-	statuslabel.text = "Status: Connection failed"
-	disable_buttons(false)
-
 func _on_server_pressed() -> void:
 	if not _required_data():
 		return
@@ -44,6 +35,7 @@ func _on_server_pressed() -> void:
 	startgamebutton.visible = true
 
 func _on_server_created():
+	lobbyinput.text = str(SteamLobby.lobby_id)
 	invitebutton.disabled = false
 
 func _on_start_pressed():
@@ -56,6 +48,16 @@ func _on_client_pressed() -> void:
 	#Lobby.player_connected.connect(_on_joined_game)
 	disable_buttons(true)
 
+func _on_player_connected(id, player_info):
+	# TODO: Refactor for steam user data/avatar
+	var info_list = player_info_list.instantiate()
+	info_list.id = id
+	info_list.player_info = player_info
+	player_list.add_child(info_list)
+
+func _on_connection_failed():
+	statuslabel.text = "Status: Connection failed"
+	disable_buttons(false)
 
 func _on_join_requested(_lobby_id: int, _friend_id: int) -> void:
 	if not _required_data():
@@ -71,12 +73,14 @@ func disable_buttons(status=false):
 func _on_server_disconnected():
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
-#func _on_joined_game(peer_id, player_info):
-	#Lobby.debug_log("joining game: "+str(player_info)+" ("+str(peer_id)+")")
-	##Lobby.game_start.connect(_on_game_started)
+func _on_exit_pressed() -> void:
+	get_tree().quit()
 
-#func _on_game_started():
-	#SteamLobby.load_game("res://game.tscn")
+func _on_overlay_button_pressed() -> void:
+	Steam.activateGameOverlay()
+
+func _on_invite_button_pressed() -> void:
+	Steam.activateGameOverlayInviteDialog(SteamLobby.lobby_id)
 
 func _required_data() -> bool:
 	statuslabel.text = "Status: "
@@ -93,14 +97,3 @@ func _required_data() -> bool:
 		SteamLobby.player_info["avatar"] = SelectionManager.avatar
 		SteamLobby.player_info["avatar_id"] = SelectionManager.avatar.id
 	return result
-
-func _on_exit_pressed() -> void:
-	get_tree().quit()
-
-
-func _on_overlay_button_pressed() -> void:
-	Steam.activateGameOverlay()
-
-
-func _on_invite_button_pressed() -> void:
-	Steam.activateGameOverlayInviteDialog(SteamLobby.lobby_id)
