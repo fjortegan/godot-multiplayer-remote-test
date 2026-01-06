@@ -73,9 +73,14 @@ ui_down={
 2d_physics/layer_8="Bullet4"
 2d_physics/layer_9="Buttons"
 
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+
 [steam]
 
 initialization/app_id=480
-initialization/initialize_on_startup=true
+initialization/initialize_on_startup=false
 initialization/embed_callbacks=true
 multiplayer_peer/max_channels=4
