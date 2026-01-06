@@ -3,6 +3,7 @@ class_name Lobby extends Node
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal connection_failed
+signal server_created
 signal server_disconnected
 signal game_start(scene_path)
 

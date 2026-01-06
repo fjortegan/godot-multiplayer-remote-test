@@ -11,12 +11,13 @@ extends Node2D
 @onready var startgamebutton = $MainContainer/FormContainer/StartGameButton
 @onready var player_list = $MainContainer/PlayerList
 @onready var lobbyinput = $MainContainer/FormContainer/HBoxContainer2/LobbyInput
-
+@onready var invitebutton = $MainContainer/FormContainer/ButtonsContainer2/InviteButton
 func _ready() -> void:
 	SteamLobby.init()
 	Global.current_lobby = SteamLobby
 	Steam.join_requested.connect(_on_join_requested)
 	SteamLobby.player_connected.connect(_on_player_connected)
+	SteamLobby.server_created.connect(_on_server_created)
 	SteamLobby.server_disconnected.connect(_on_server_disconnected)
 	SteamLobby.connection_failed.connect(_on_connection_failed)
 
@@ -42,6 +43,9 @@ func _on_server_pressed() -> void:
 	disable_buttons(true)
 	startgamebutton.visible = true
 
+func _on_server_created():
+	invitebutton.disabled = false
+
 func _on_start_pressed():
 	SteamLobby.start_game(game_scene.resource_path)
 
@@ -57,6 +61,7 @@ func _on_join_requested(_lobby_id: int, _friend_id: int) -> void:
 	if not _required_data():
 		return
 	lobbyinput.text = str(_lobby_id)
+	disable_buttons(true)
 	SteamLobby.join_game(_lobby_id)
 
 func disable_buttons(status=false):

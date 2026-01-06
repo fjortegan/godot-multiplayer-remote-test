@@ -181,6 +181,7 @@ text = "Steam Overlay"
 [node name="InviteButton" type="Button" parent="MainContainer/FormContainer/ButtonsContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+disabled = true
 text = "Invite Friend"
 
 [node name="StatusLabel" type="Label" parent="MainContainer/FormContainer"]
