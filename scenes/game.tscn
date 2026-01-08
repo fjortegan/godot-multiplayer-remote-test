@@ -13,16 +13,16 @@ spawners = [NodePath("Spawners/MultiplayerSpawner1"), NodePath("Spawners/Multipl
 [node name="Buttons" type="Node2D" parent="."]
 
 [node name="Button1" parent="Buttons" instance=ExtResource("2_7jktm")]
-position = Vector2(274, 234)
+position = Vector2(250, 324)
 
 [node name="Button2" parent="Buttons" instance=ExtResource("2_7jktm")]
-position = Vector2(399, 235)
+position = Vector2(576, 250)
 
 [node name="Button3" parent="Buttons" instance=ExtResource("2_7jktm")]
-position = Vector2(334, 194)
+position = Vector2(902, 324)
 
 [node name="Button4" parent="Buttons" instance=ExtResource("2_7jktm")]
-position = Vector2(334, 280)
+position = Vector2(576, 398)
 
 [node name="DoorSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://bswgmxp16yce5")
@@ -58,20 +58,19 @@ network_player = ExtResource("4_fc0e3")
 position = Vector2(0, -1)
 
 [node name="Player1" type="Node2D" parent="Players"]
-position = Vector2(138, 232)
+position = Vector2(100, 324)
 
 [node name="Player2" type="Node2D" parent="Players"]
-position = Vector2(331, 119)
+position = Vector2(576, 100)
 
 [node name="Player3" type="Node2D" parent="Players"]
-position = Vector2(551, 227)
+position = Vector2(1050, 324)
 
 [node name="Player4" type="Node2D" parent="Players"]
-position = Vector2(335, 353)
+position = Vector2(576, 548)
 
 [node name="Doors" type="Node2D" parent="."]
-position = Vector2(335, 242)
+position = Vector2(576, 324)
 
 [node name="Door" parent="Doors" instance=ExtResource("5_7jktm")]
 visible = false
-position = Vector2(-1, -5)

@@ -8,24 +8,26 @@ var player_layers: Array[int] = [1, 2, 4, 8]
 var bullet_layers: Array[int] = [16, 32, 64, 128]
 var collision_masks: Array[int] = [238, 221, 187, 119]
 
-var time_left: float = 5000
+var time_left: float = 5
 var alive_timer: Timer
+@export var player_alive: bool = true
+@export var current_life: float
 
 const SPEED: float = 200.0
 const OFFSET: float = 0.1
+const MAXLIFE: float = 50.0
 
 func _enter_tree() -> void:
-	#Global.current_lobby.debug_log("Player name: %s" % name)
-	#Global.current_lobby.debug_log("Player path: %s" % get_path())
 	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
-	#Global.current_lobby.debug_log("player collision mask: " + str(collision_mask))
-	alive_timer = Timer.new()
-	alive_timer.wait_time = time_left
-	alive_timer.autostart = true
-	alive_timer.timeout.connect(_on_death)
-	add_child(alive_timer)
+	current_life = MAXLIFE
+	#alive_timer = Timer.new()
+	#alive_timer.wait_time = time_left
+	#alive_timer.autostart = true
+	#alive_timer.timeout.connect(_on_death)
+	#add_child(alive_timer)
+	
 	if is_multiplayer_authority():
 		collision_layer = player_layers[index]
 		collision_mask = collision_masks[index]
@@ -40,8 +42,16 @@ func set_index(_index):
 	collision_layer = player_layers[index]
 	collision_mask = collision_masks[index]
 
+func receive_damage(damage: float):
+	current_life -= damage
+	if current_life <= 0:
+		current_life = 0
+		_on_death()
+
 func _on_death():
-	queue_free()
+	player_alive = false
+	$LPCAnimatedSprite2D.play_animation("hurt", "south")
+	#queue_free()
 
 func _input(event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return 
@@ -51,13 +61,20 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return 
-	$Nickname.text = Global.current_lobby.player_info["name"] + " %.0f s" % alive_timer.time_left
-	velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") * SPEED
-	if velocity == Vector2.ZERO:
-		$LPCAnimatedSprite2D.play_animation("idle", "south")
-	else:
-		$LPCAnimatedSprite2D.play_animation("walk", _direction_string(velocity))
+	$Nickname.text = Global.current_lobby.player_info["name"] + " %.0f PV" % current_life
+	if player_alive:
+		velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") * SPEED
+		if velocity == Vector2.ZERO:
+			$LPCAnimatedSprite2D.play_animation("idle", "south")
+		else:
+			$LPCAnimatedSprite2D.play_animation("walk", _direction_string(velocity))
 	move_and_slide()
+	for i in get_slide_collision_count():
+		var collider = get_slide_collision(i).get_collider()
+		if collider.is_in_group("Bullet"):
+			collider.dispose_bullet()
+			receive_damage(collider.DAMAGE)
+
 
 @rpc("call_local", "any_peer", "reliable")
 func shoot(_velocity):
@@ -79,3 +96,7 @@ func _direction_string(value: Vector2) -> String:
 	elif value.y < -OFFSET:
 		direction = "north"
 	return direction
+
+func _on_animation_finished() -> void:
+	if not player_alive:
+		queue_free()

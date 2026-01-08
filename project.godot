@@ -26,6 +26,10 @@ Global="*res://scripts/global.gd"
 
 enabled=PackedStringArray("res://addons/LPCAnimatedSprite/plugin.cfg")
 
+[global_group]
+
+Bullet=""
+
 [input]
 
 ui_left={
