@@ -4357,7 +4357,7 @@ shape = SubResource("RectangleShape2D_7jktm")
 
 [node name="LPCAnimatedSprite2D" parent="." instance=ExtResource("3_60mlk")]
 sprite_frames = SubResource("SpriteFrames_3xdjv")
-frame_progress = 0.84597254
+frame_progress = 0.015673261
 animation_data = SubResource("Resource_0anxw")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -4375,5 +4375,11 @@ vertical_alignment = 1
 
 [node name="ShootCD" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="BulletSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://2hwgxdfyivlh")
+spawn_path = NodePath("../Bullets")
+
+[node name="Bullets" type="Node2D" parent="."]
 
 [connection signal="animation_finished" from="LPCAnimatedSprite2D" to="." method="_on_animation_finished"]

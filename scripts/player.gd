@@ -56,8 +56,8 @@ func _on_death():
 func _input(event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return 
 	if event.is_action_pressed("ui_accept"):
-		shoot.rpc(velocity)
-		#shoot()
+		#shoot.rpc(velocity, Global.current_lobby.player_info["avatar"].bullet_color)
+		shoot(velocity, Global.current_lobby.player_info["avatar"].bullet_color, name.to_int())
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority(): return 
@@ -72,18 +72,20 @@ func _physics_process(_delta: float) -> void:
 	for i in get_slide_collision_count():
 		var collider = get_slide_collision(i).get_collider()
 		if collider.is_in_group("Bullet"):
-			collider.dispose_bullet()
+			collider.dispose_bullet.rpc()
 			receive_damage(collider.DAMAGE)
 
 
-@rpc("call_local", "any_peer", "reliable")
-func shoot(_velocity):
+#@rpc("call_local", "any_peer", "reliable")
+func shoot(_velocity, _color, _player_id):
 	var instance: RigidBody2D = bullet.instantiate()
-	instance.global_position = global_position
+	instance.color = _color
+	instance.player_id = _player_id
+	#instance.global_position = global_position
 	instance.velocity = _velocity
 	instance.collision_layer = bullet_layers[index]
 	instance.collision_mask = collision_masks[index]
-	get_tree().root.add_child(instance)
+	$Bullets.add_child(instance, true)
 	#instance.position = position ## medida relativa, evitar position
 	#get_parent().add_child(instance)
 

@@ -7,4 +7,5 @@
 script = ExtResource("2_ta5jo")
 id = "p2"
 image = ExtResource("1_d4f40")
+bullet_color = Color(0.20516664, 0.6340923, 0.75806063, 1)
 metadata/_custom_type_script = "uid://cdvkohwl2hsua"
