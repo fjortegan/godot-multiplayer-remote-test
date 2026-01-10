@@ -9,6 +9,9 @@ const DURATION: float = 1
 
 const DAMAGE: float = 10.0
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(player_id)
+
 func _ready() -> void:
 	if not velocity == Vector2.ZERO:
 		linear_velocity = velocity.normalized() * SPEED

@@ -71,6 +71,7 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	for i in get_slide_collision_count():
 		var collider = get_slide_collision(i).get_collider()
+		Global.current_lobby.debug_log("collision -> " + collider.name)
 		if collider.is_in_group("Bullet"):
 			collider.dispose_bullet.rpc()
 			receive_damage(collider.DAMAGE)
