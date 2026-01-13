@@ -13,6 +13,7 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(player_id)
 
 func _ready() -> void:
+	Global.current_lobby.debug_log("Color: %s - ID : %d" % [str(color), player_id])
 	if not velocity == Vector2.ZERO:
 		linear_velocity = velocity.normalized() * SPEED
 	else:

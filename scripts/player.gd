@@ -86,7 +86,7 @@ func shoot(_velocity, _color, _player_id):
 	instance.velocity = _velocity
 	instance.collision_layer = bullet_layers[index]
 	instance.collision_mask = collision_masks[index]
-	$Bullets.add_child(instance, true)
+	$Bullets.add_child(instance)
 	#instance.position = position ## medida relativa, evitar position
 	#get_parent().add_child(instance)
 
