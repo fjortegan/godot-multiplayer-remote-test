@@ -17,6 +17,8 @@ const SPEED: float = 200.0
 const OFFSET: float = 0.1
 const MAXLIFE: float = 50.0
 
+@onready var bullets = $Bullets
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
@@ -79,14 +81,19 @@ func _physics_process(_delta: float) -> void:
 
 #@rpc("call_local", "any_peer", "reliable")
 func shoot(_velocity, _color, _player_id):
+	create_bullet.rpc_id(1, _velocity, _color, _player_id)
+
+@rpc("any_peer", "call_local", "reliable")
+func create_bullet(_velocity, _color, _player_id):
 	var instance: RigidBody2D = bullet.instantiate()
 	instance.color = _color
 	instance.player_id = _player_id
+	#instance.name = str(_player_id)
 	#instance.global_position = global_position
 	instance.velocity = _velocity
 	instance.collision_layer = bullet_layers[index]
 	instance.collision_mask = collision_masks[index]
-	$Bullets.add_child(instance)
+	bullets.add_child(instance, true)
 	#instance.position = position ## medida relativa, evitar position
 	#get_parent().add_child(instance)
 

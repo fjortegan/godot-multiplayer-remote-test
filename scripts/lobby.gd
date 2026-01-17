@@ -15,7 +15,7 @@ var players = {}
 # before the connection is made. It will be passed to every other peer.
 # For example, the value of "name" can be set to something the player
 # entered in a UI scene.
-var player_info = {"name": "Player 1", "avatar": "p1"}
+var player_info = {"name": "Player 1", "avatar": "p1", "avatar_id": "p1"}
 
 var initialized: bool = false
 var players_loaded = 1

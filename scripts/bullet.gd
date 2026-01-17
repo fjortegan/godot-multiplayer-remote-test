@@ -10,9 +10,12 @@ const DURATION: float = 1
 const DAMAGE: float = 10.0
 
 func _enter_tree() -> void:
-	set_multiplayer_authority(player_id)
+	#get_parent().get_multiplayer_authority()
+	Global.current_lobby.debug_log("bullet authority: %s" % get_parent().get_parent().name)
+	set_multiplayer_authority(get_parent().get_parent().name.to_int())
 
 func _ready() -> void:
+	if not is_multiplayer_authority(): return
 	Global.current_lobby.debug_log("Color: %s - ID : %d" % [str(color), player_id])
 	if not velocity == Vector2.ZERO:
 		linear_velocity = velocity.normalized() * SPEED
