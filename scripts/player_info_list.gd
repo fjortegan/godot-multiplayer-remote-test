@@ -9,19 +9,12 @@ extends HBoxContainer
 
 func _ready() -> void:
 	id_label.text = str(id)
-	#name_label.text = Steam.getFriendPersonaName(Steam.getSteamID())
 	name_label.text = player_info["name"]
-	var avatar_image
-	#var avatar =  load("res://resources/"+player_info["avatar_id"]+".tres") as Avatar
-	var avatar = player_info["avatar"]
-	if avatar is EncodedObjectAsID:
-		avatar =  load("res://resources/"+player_info["avatar_id"]+".tres") as Avatar		
-		#avatar = instance_from_id(player_info["avatar"].get_object_id())
-	avatar_image = avatar.image
-	#Steam.avatar_loaded.connect(_on_loaded_avatar)
-	#Steam.getPlayerAvatar(Steam.AVATAR_MEDIUM)
-	avatar_img.texture = avatar_image
+	# standard avatar load image
+	avatar_img.texture = Global.get_avatar(player_info["avatar_id"]).image
 
+
+# steam avatar load
 func _on_loaded_avatar(user_id: int, avatar_size: int, avatar_buffer: PackedByteArray) -> void:
 	print("Avatar for user: %s" % user_id)
 	print("Size: %s" % avatar_size)

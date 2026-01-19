@@ -4357,7 +4357,7 @@ shape = SubResource("RectangleShape2D_7jktm")
 
 [node name="LPCAnimatedSprite2D" parent="." instance=ExtResource("3_60mlk")]
 sprite_frames = SubResource("SpriteFrames_3xdjv")
-frame_progress = 0.25856003
+frame_progress = 0.27077222
 animation_data = SubResource("Resource_0anxw")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var bullet: PackedScene
 
 # player/bullets layers
+# TODO: refactor
 var player_layers: Array[int] = [1, 2, 4, 8]
 var bullet_layers: Array[int] = [16, 32, 64, 128]
 var collision_masks: Array[int] = [238, 221, 187, 119]
@@ -22,10 +23,11 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	current_life = MAXLIFE
 	
+	# TODO: refactor
 	if is_multiplayer_authority():
 		collision_layer = player_layers[index]
 		collision_mask = collision_masks[index]
-		$LPCAnimatedSprite2D.spritesheets_path = "res://images/characters/" + Global.current_lobby.player_info["avatar"].id
+		$LPCAnimatedSprite2D.spritesheets_path = "res://images/characters/" + Global.current_lobby.player_info["avatar_id"]
 		$Nickname.text = Global.current_lobby.player_info["name"]
 		$Nickname.add_theme_font_size_override("font_size", 12)
 		$Nickname.add_theme_color_override("font_color", Color.LAWN_GREEN)
@@ -58,7 +60,7 @@ func _on_animation_finished() -> void:
 func _input(event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return 
 	if event.is_action_pressed("ui_accept"):
-		shoot(velocity, Global.current_lobby.player_info["avatar"].bullet_color, name.to_int())
+		shoot(velocity, Global.get_avatar(Global.current_lobby.player_info["avatar_id"]).bullet_color, name.to_int())
 
 # process: manages movement, animation and name helper
 func _physics_process(_delta: float) -> void:
@@ -84,7 +86,7 @@ func _physics_process(_delta: float) -> void:
 func shoot(_velocity, _color, _player_id):
 	# get Game root node
 	var root_node = get_parent().get_parent()
-	root_node.shoot(index, global_position, _velocity, Global.current_lobby.player_info["avatar"].bullet_color)
+	root_node.shoot(index, global_position, _velocity, Global.get_avatar(Global.current_lobby.player_info["avatar_id"]).bullet_color)
 
 # calculates direction for animations
 func _direction_string(value: Vector2) -> String:

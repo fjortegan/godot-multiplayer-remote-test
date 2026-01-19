@@ -61,13 +61,6 @@ func disable_buttons(status=false):
 	serverbutton.disabled = status
 	clientbutton.disabled = status
 
-#func _on_joined_game(peer_id, player_info):
-	#Lobby.debug_log("joining game: "+str(player_info)+" ("+str(peer_id)+")")
-	##Lobby.game_start.connect(_on_game_started)
-
-#func _on_game_started():
-	#LANLobby.load_game(game_scene.resource_path)
-
 func _on_server_disconnected():
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
@@ -83,7 +76,6 @@ func _required_data() -> bool:
 	if result:
 		statuslabel.text += "Waiting "
 		LANLobby.player_info["name"] = playername.text
-		LANLobby.player_info["avatar"] = SelectionManager.avatar
 		LANLobby.player_info["avatar_id"] = SelectionManager.avatar.id
 	return result
 
