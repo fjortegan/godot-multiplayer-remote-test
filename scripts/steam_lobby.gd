@@ -1,5 +1,7 @@
 extends Lobby
 
+signal server_created
+
 const MAX_CONNECTIONS = 4
 
 var is_host: bool = false

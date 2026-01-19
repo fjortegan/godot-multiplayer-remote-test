@@ -3,7 +3,6 @@ class_name Lobby extends Node
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal connection_failed
-signal server_created
 signal server_disconnected
 signal game_start(scene_path)
 
@@ -15,7 +14,7 @@ var players = {}
 # before the connection is made. It will be passed to every other peer.
 # For example, the value of "name" can be set to something the player
 # entered in a UI scene.
-var player_info = {"name": "Player 1", "avatar": "p1", "avatar_id": "p1"}
+var player_info = {"name": "Player 1","avatar": "p1", "avatar_id": "p1"}
 
 var initialized: bool = false
 var players_loaded = 1
