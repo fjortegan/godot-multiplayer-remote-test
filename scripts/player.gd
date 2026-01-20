@@ -3,19 +3,21 @@ extends CharacterBody2D
 
 @export var index: int
 @export var bullet: PackedScene
-
-# player/bullets layers
-# TODO: refactor
-var player_layers: Array[int] = [1, 2, 4, 8]
-var bullet_layers: Array[int] = [16, 32, 64, 128]
-var collision_masks: Array[int] = [238, 221, 187, 119]
-
 @export var player_alive: bool = true
 @export var current_life: float
 
+@onready var animation: LPCAnimatedSprite2D = $LPCAnimatedSprite2D
+@onready var nickname = $Nickname
+
 const SPEED: float = 200.0
 const OFFSET: float = 0.1
+
 const MAXLIFE: float = 50.0
+
+# nickname helper local custom theme?
+# TODO: refactor nickname helper
+const FONTSIZE = 12 
+const FONTCOLOR = Color.LAWN_GREEN 
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -23,21 +25,12 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	current_life = MAXLIFE
 	
-	# TODO: refactor
+	# TODO: refactor nickname helper
 	if is_multiplayer_authority():
-		collision_layer = player_layers[index]
-		collision_mask = collision_masks[index]
-		$LPCAnimatedSprite2D.spritesheets_path = "res://images/characters/" + Global.current_lobby.player_info["avatar_id"]
-		$Nickname.text = Global.current_lobby.player_info["name"]
-		$Nickname.add_theme_font_size_override("font_size", 12)
-		$Nickname.add_theme_color_override("font_color", Color.LAWN_GREEN)
-
-# TODO: refactor
-@rpc("any_peer", "call_local", "reliable")
-func set_index(_index):
-	index = _index
-	collision_layer = player_layers[index]
-	collision_mask = collision_masks[index]
+		animation.spritesheets_path = Global.get_avatar_path()
+		nickname.text = Global.get_player_name()
+		nickname.add_theme_font_size_override("font_size", FONTSIZE)
+		nickname.add_theme_color_override("font_color", FONTCOLOR)
 
 # receive damage and death
 func receive_damage(damage: float):
@@ -49,7 +42,7 @@ func receive_damage(damage: float):
 # change animation on death signal
 func _on_death():
 	player_alive = false
-	$LPCAnimatedSprite2D.play_animation("hurt", "south")
+	animation.play_animation("hurt", "south")
 
 # when dead animation is finished, dispose this node
 func _on_animation_finished() -> void:
@@ -58,35 +51,37 @@ func _on_animation_finished() -> void:
 		
 # input: shoot
 func _input(event: InputEvent) -> void:
-	if not is_multiplayer_authority(): return 
+	if not is_multiplayer_authority(): return # AUTHORITY ONLY
 	if event.is_action_pressed("ui_accept"):
-		shoot(velocity, Global.get_avatar(Global.current_lobby.player_info["avatar_id"]).bullet_color, name.to_int())
+		shoot(velocity, Global.get_avatar().bullet_color, name.to_int())
 
-# process: manages movement, animation and name helper
+# process: manages movement, animation and name helper 
 func _physics_process(_delta: float) -> void:
-	if not is_multiplayer_authority(): return 
-	$Nickname.text = Global.current_lobby.player_info["name"] + " %.0f PV" % current_life
+	if not is_multiplayer_authority(): return # AUTHORITY ONLY
+	# TODO: refactor
+	nickname.text = Global.get_player_name() + " %.0f PV" % current_life
 	if player_alive:
 		velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") * SPEED
 		if velocity == Vector2.ZERO:
-			$LPCAnimatedSprite2D.play_animation("idle", "south")
+			animation.play_animation("idle", "south")
 		else:
-			$LPCAnimatedSprite2D.play_animation("walk", _direction_string(velocity))
+			animation.play_animation("walk", _direction_string(velocity))
 	move_and_slide()
-	# detect bullet collisions because it is 
+	# detect bullet collisions
 	for i in get_slide_collision_count():
 		var collider = get_slide_collision(i).get_collider()
-		Global.current_lobby.debug_log("collision -> " + collider.name)
+		Global.current_lobby.debug_log("collision: " + name + " -> " + collider.name)
 		if collider.is_in_group("Bullet"):
-			receive_damage(collider.DAMAGE)
+			#receive_damage(collider.DAMAGE)
 			collider.dispose_bullet.rpc_id(collider.player_id)
 
 # order shoot on game (called locally)
-# TODO: create signal?
+# TODO: create signal connected to Game
 func shoot(_velocity, _color, _player_id):
 	# get Game root node
 	var root_node = get_parent().get_parent()
-	root_node.shoot(index, global_position, _velocity, Global.get_avatar(Global.current_lobby.player_info["avatar_id"]).bullet_color)
+	Global.current_lobby.debug_log("player shoot %d" % _player_id)
+	root_node.shoot(index, global_position, _velocity, Global.get_avatar().bullet_color)
 
 # calculates direction for animations
 func _direction_string(value: Vector2) -> String:
