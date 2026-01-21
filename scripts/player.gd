@@ -37,11 +37,18 @@ func _ready() -> void:
 # input: shoot
 func _input(event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return # AUTHORITY ONLY
+	if event is InputEventMouseButton and not _shooting:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			var mouse_dir = get_global_mouse_position() - position
+			shoot(mouse_dir.normalized(), Global.get_avatar().bullet_color, name.to_int())
+
 	if event.is_action_pressed("ui_accept") and not _shooting:
-		shoot(velocity, Global.get_avatar().bullet_color, name.to_int())
+		var mouse_dir = get_global_mouse_position() - position
+		shoot(mouse_dir.normalized(), Global.get_avatar().bullet_color, name.to_int())
 
 func _physics_process(_delta: float) -> void:
 	if is_multiplayer_authority(): # AUTHORITY ONLY
+
 		# manages movement, animation and name helper
 		# TODO: refactor
 		nickname.text = Global.get_player_name() + " %.0f PV" % current_life
